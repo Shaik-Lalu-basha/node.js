@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Node.js Academy — About | Escort Tech Hub</title>
+<meta name="description" content="Learn Node.js from first principles to production deployment — free, interactive, and built by Escort Tech Hub." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content">
+    <div class="content-with-toc">
+
+      <div class="content-main fade-up">
+        <span class="eyebrow">About &bull; Node.js Academy</span>
+        <h1>About Node.js Academy</h1>
+        <p class="lede">
+          Node.js Academy is a free, interactive, project-driven curriculum for learning Node.js —
+          from your very first <code>console.log</code> to shipping a deployed API on Render.
+          Every lesson pairs a plain-English explanation with real, runnable code, so you see exactly
+          how a Node.js program changes as you change it.
+        </p>
+
+        <div class="hero-panel">
+          <div style="flex:1;">
+            <p>
+              Node.js is an asynchronous, event-driven JavaScript runtime built on Chrome's V8 engine.
+              It lets a single thread handle thousands of simultaneous connections by never blocking
+              on slow work like disk or network I/O — instead, it fires a callback once that work
+              finishes. This course walks through that model layer by layer: syntax first, the
+              module system next, then asynchronous programming, core modules, networking, and
+              finally the patterns used in real production servers.
+            </p>
+            <p>
+              Every code sample on this site runs in your browser through a built-in Node.js sandbox —
+              press <b>Run</b> under any snippet and watch the console fill in live, exactly like running
+              <code>node app.js</code> in a terminal.
+            </p>
+          </div>
+
+          <div class="founder-card">
+            <div class="founder-card__avatar">SLB</div>
+            <div class="founder-card__name">Shaik Lalu Basha</div>
+            <div class="founder-card__role">Founder &amp; Developer, Escort Tech Hub</div>
+            <p class="founder-card__bio">
+              Designed and built this platform end-to-end — curriculum, interactive sandbox,
+              and site — as part of Escort Tech Hub's mission to make practical software
+              education freely accessible.
+            </p>
+            <div class="founder-card__divider"></div>
+            <div class="founder-card__meta"><span>Organization</span><b>Escort Tech Hub</b></div>
+            <div class="founder-card__meta"><span>Platform</span><b>Node.js Academy</b></div>
+            <div class="founder-card__meta"><span>License</span><b>All rights reserved</b></div>
+          </div>
+        </div>
+
+        <h2 id="quickstart">A taste of Node.js</h2>
+        <p>Here's the same "Hello World" HTTP server every Node.js developer eventually writes. Press Run to execute it in the sandbox below.</p>
+
+        <div id="hero-code"></div>
+
+        <h2 id="stats">What's inside</h2>
+        <div class="stat-grid">
+          <div class="stat-card"><div class="stat-card__num" id="statLessons">0</div><div class="stat-card__label">Interactive lessons</div></div>
+          <div class="stat-card"><div class="stat-card__num" id="statGroups">0</div><div class="stat-card__label">Curriculum modules</div></div>
+          <div class="stat-card"><div class="stat-card__num">100%</div><div class="stat-card__label">Runnable code</div></div>
+          <div class="stat-card"><div class="stat-card__num">Free</div><div class="stat-card__label">Always</div></div>
+        </div>
+
+        <h2 id="paths">Learning path</h2>
+        <p>The curriculum is organized in the order most students actually need it — start at the top of the sidebar and work down.</p>
+        <div class="path-grid">
+          <a class="path-card" href="lessons/what-is-nodejs.html">
+            <div class="path-card__level">Beginner</div>
+            <div class="path-card__title">Getting Started &amp; Core JS</div>
+            <div class="path-card__desc">What Node.js is, installing it, the REPL, and the JavaScript fundamentals every lesson after this one builds on.</div>
+            <div class="path-card__link">Start here →</div>
+          </a>
+          <a class="path-card" href="lessons/callbacks.html">
+            <div class="path-card__level">Intermediate</div>
+            <div class="path-card__title">Async &amp; Core Modules</div>
+            <div class="path-card__desc">Callbacks, Promises, async/await, the event loop, and the built-in fs / http / events modules.</div>
+            <div class="path-card__link">Continue →</div>
+          </a>
+          <a class="path-card" href="lessons/streams-buffers.html">
+            <div class="path-card__level">Advanced</div>
+            <div class="path-card__title">Networking &amp; Production</div>
+            <div class="path-card__desc">HTTP servers, Express, streams, error handling, environment config, and deploying to Render.</div>
+            <div class="path-card__link">Go deeper →</div>
+          </a>
+        </div>
+
+        <h2 id="about-eth">About Escort Tech Hub</h2>
+        <p>
+          Escort Tech Hub (ETH) builds practical software — school management systems, web platforms, and
+          learning tools — under the direction of founder and developer Shaik Lalu Basha. Node.js Academy is
+          built and maintained by ETH as an open learning resource.
+        </p>
+        <div class="callout callout--tip">
+          <div class="callout__icon">💡</div>
+          <p>New here? Use the sidebar to move through the curriculum in order, or jump straight to the <a href="playground.html" style="color:var(--forest-700); font-weight:600;">Live Playground</a> to experiment freely.</p>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc__card">
+          <div class="toc__title">On this page</div>
+          <a href="#quickstart">A taste of Node.js</a>
+          <a href="#stats">What's inside</a>
+          <a href="#paths">Learning path</a>
+          <a href="#about-eth">About Escort Tech Hub</a>
+          <div class="reading-time">
+            <div class="reading-time__value">3 min</div>
+            <div class="reading-time__label">Reading time</div>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/codeblock.js"></script>
+<script src="js/lessons-data.js"></script>
+<script src="js/sandbox.js"></script>
+<script src="js/main.js"></script>
+<script>
+  ETH_SITE.mount("about", "about", "");
+
+  document.getElementById("statLessons").textContent = ETH_CURRICULUM.length;
+  document.getElementById("statGroups").textContent = ETH_GROUPS.length;
+
+  const heroCode = {
+    filename: "server.js",
+    runnable: true,
+    code:
+`const { createServer } = require('http');
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello World');
+});
+
+server.listen(port, hostname, () => {
+  console.log(\`Server running at http://\${hostname}:\${port}/\`);
+});`
+  };
+  document.getElementById("hero-code").innerHTML = ETH_SITE.renderCodeBlock(heroCode, 0);
+  ETH_SITE.wireCodeBlocks(document, { "0": heroCode.code });
+</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Introduction to Express.js — Node.js Academy by ETH</title>
+<meta name="description" content="Express is the most widely used Node.js web framework — it wraps the raw http module in a much friendlier API for routes, middleware, and JSON handling." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content">
+    <div class="content-with-toc">
+      <div class="content-main fade-up">
+        <span class="eyebrow">Networking &bull; <span class="level-intermediate">Intermediate</span></span>
+        <h1>Introduction to Express.js</h1>
+        <p class="lede">Express is the most widely used Node.js web framework — it wraps the raw http module in a much friendlier API for routes, middleware, and JSON handling.</p>
+
+        <h2 id="sec-0">Why Express</h2>
+<p>app.get(), app.post(), and friends replace manual req.url checks. express.json() parses request bodies automatically. It's installed with npm install express and is the foundation most real Node.js backends are built on.</p>
+<p>Express itself requires a real npm install, so this snippet shows the exact code you'd run in a real project — read it alongside the sandboxed http example above to see how much boilerplate Express removes.</p>
+
+
+        <h3>Try it live</h3>
+        
+    <div class="codeblock" data-block="0">
+      <div class="codeblock__bar">
+        <div class="codeblock__dots"><span></span><span></span><span></span></div>
+        <span class="codeblock__filename">app.js</span>
+        <div class="codeblock__spacer"></div>
+        <button class="codeblock__btn" data-copy="0">&#10697; Copy</button>
+        <span class="codeblock__btn" style="opacity:.6;cursor:default;" title="Requires npm install locally">&#128230; Needs npm install</span>
+      </div>
+      <pre><code><span class="tok-kw">const</span> express = <span class="tok-kw">require</span>(<span class="tok-str">"express"</span>);
+<span class="tok-kw">const</span> app = <span class="tok-fn">express</span>();
+
+app.<span class="tok-fn">use</span>(express.<span class="tok-fn">json</span>());
+
+app.<span class="tok-fn">get</span>(<span class="tok-str">"/"</span>, (req, res) =&gt; {
+  res.<span class="tok-fn">send</span>(<span class="tok-str">"Welcome to the ETH Node.js API"</span>);
+});
+
+app.<span class="tok-fn">post</span>(<span class="tok-str">"/students"</span>, (req, res) =&gt; {
+  <span class="tok-kw">const</span> { name } = req.body;
+  res.<span class="tok-fn">status</span>(<span class="tok-num">201</span>).<span class="tok-fn">json</span>({ id: Date.<span class="tok-fn">now</span>(), name });
+});
+
+app.<span class="tok-fn">listen</span>(<span class="tok-num">5000</span>, () =&gt; {
+  console.<span class="tok-fn">log</span>(<span class="tok-str">"Express server running on port 5000"</span>);
+});</code></pre>
+    </div>
+    
+    
+
+        <div class="lesson-nav">
+          
+    <a class="lesson-nav__btn lesson-nav__btn--prev" href="rest-api-raw.html">
+      <div class="lesson-nav__dir">&larr; Previous</div>
+      <div class="lesson-nav__title">Routing a Simple REST API</div>
+    </a>
+          
+    <a class="lesson-nav__btn lesson-nav__btn--next" href="streams-buffers.html">
+      <div class="lesson-nav__dir">Next &rarr;</div>
+      <div class="lesson-nav__title">Streams & Buffers</div>
+    </a>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc__card">
+          <div class="toc__title">On this page</div>
+          <a href="#sec-0">Why Express</a>
+          <div class="reading-time">
+            <div class="reading-time__value">8 min</div>
+            <div class="reading-time__label">Reading time</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="../js/codeblock.js"></script>
+<script src="../js/lessons-data.js"></script>
+<script src="../js/sandbox.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  ETH_SITE.mount("curriculum", "express-intro", "../");
+  ETH_SITE.wireCodeBlocks(document, {"0":"const express = require(\"express\");\nconst app = express();\n\napp.use(express.json());\n\napp.get(\"/\", (req, res) => {\n  res.send(\"Welcome to the ETH Node.js API\");\n});\n\napp.post(\"/students\", (req, res) => {\n  const { name } = req.body;\n  res.status(201).json({ id: Date.now(), name });\n});\n\napp.listen(5000, () => {\n  console.log(\"Express server running on port 5000\");\n});"});
+</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Modules: CommonJS & ESM — Node.js Academy by ETH</title>
+<meta name="description" content="Node.js splits code into modules so a project doesn't live in one giant file. There are two module systems: CommonJS (require) and ES Modules (import)." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content">
+    <div class="content-with-toc">
+      <div class="content-main fade-up">
+        <span class="eyebrow">Node Fundamentals &bull; <span class="level-beginner">Beginner</span></span>
+        <h1>Modules: CommonJS & ESM</h1>
+        <p class="lede">Node.js splits code into modules so a project doesn't live in one giant file. There are two module systems: CommonJS (require) and ES Modules (import).</p>
+
+        <h2 id="sec-0">CommonJS — the classic default</h2>
+<p>Every .js file is its own module. Use module.exports to expose values and require() to pull them into another file. Node caches a module after the first require, so the same instance is reused everywhere.</p>
+
+<h2 id="sec-1">ES Modules — the modern standard</h2>
+<p>Set "type": "module" in package.json (or use .mjs files) to use import/export syntax instead — the same syntax used in modern frontend code.</p>
+
+
+        <h3>Try it live</h3>
+        
+    <div class="codeblock" data-block="0">
+      <div class="codeblock__bar">
+        <div class="codeblock__dots"><span></span><span></span><span></span></div>
+        <span class="codeblock__filename">math.js + app.js</span>
+        <div class="codeblock__spacer"></div>
+        <button class="codeblock__btn" data-copy="0">&#10697; Copy</button>
+        <button class="codeblock__btn codeblock__btn--run" data-run="0">&#9654; Run</button>
+      </div>
+      <pre><code><span class="tok-com">// math.js (CommonJS)</span>
+<span class="tok-kw">function</span> <span class="tok-fn">square</span>(n){ <span class="tok-kw">return</span> n * n; }
+<span class="tok-kw">module</span>.<span class="tok-kw">exports</span> = { square };
+
+<span class="tok-com">// app.js</span>
+<span class="tok-kw">const</span> { square } = <span class="tok-kw">require</span>(<span class="tok-str">"./math.js"</span>);
+console.<span class="tok-fn">log</span>(<span class="tok-str">"square(6) ="</span>, <span class="tok-fn">square</span>(<span class="tok-num">6</span>));
+
+<span class="tok-com">// The ES Module equivalent would be:</span>
+<span class="tok-com">// export function square(n){ return n * n; }</span>
+<span class="tok-com">// import { square } from "./math.js";</span></code></pre>
+    </div>
+    
+    <div class="console" id="console-0">
+      <div class="console__bar"><span class="console__dot"></span>Console output</div>
+      <div class="console__body" id="console-body-0"><span class="console__placeholder">Click "Run" to execute this code and see live output.</span></div>
+    </div>
+    
+
+        <div class="lesson-nav">
+          
+    <a class="lesson-nav__btn lesson-nav__btn--prev" href="loops-conditionals.html">
+      <div class="lesson-nav__dir">&larr; Previous</div>
+      <div class="lesson-nav__title">Loops & Conditionals</div>
+    </a>
+          
+    <a class="lesson-nav__btn lesson-nav__btn--next" href="npm-package-json.html">
+      <div class="lesson-nav__dir">Next &rarr;</div>
+      <div class="lesson-nav__title">npm & package.json</div>
+    </a>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc__card">
+          <div class="toc__title">On this page</div>
+          <a href="#sec-0">CommonJS — the classic default</a><a href="#sec-1">ES Modules — the modern standard</a>
+          <div class="reading-time">
+            <div class="reading-time__value">8 min</div>
+            <div class="reading-time__label">Reading time</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="../js/codeblock.js"></script>
+<script src="../js/lessons-data.js"></script>
+<script src="../js/sandbox.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  ETH_SITE.mount("curriculum", "modules-commonjs-esm", "../");
+  ETH_SITE.wireCodeBlocks(document, {"0":"// math.js (CommonJS)\nfunction square(n){ return n * n; }\nmodule.exports = { square };\n\n// app.js\nconst { square } = require(\"./math.js\");\nconsole.log(\"square(6) =\", square(6));\n\n// The ES Module equivalent would be:\n// export function square(n){ return n * n; }\n// import { square } from \"./math.js\";"});
+</script>
+</body>
+</html>

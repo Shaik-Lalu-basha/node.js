@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Installing Node.js & the REPL — Node.js Academy by ETH</title>
+<meta name="description" content="Install Node.js once, and you get two tools instantly: the `node` command to run files, and the REPL — a live JavaScript shell." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content">
+    <div class="content-with-toc">
+      <div class="content-main fade-up">
+        <span class="eyebrow">Getting Started &bull; <span class="level-beginner">Beginner</span></span>
+        <h1>Installing Node.js & the REPL</h1>
+        <p class="lede">Install Node.js once, and you get two tools instantly: the `node` command to run files, and the REPL — a live JavaScript shell.</p>
+
+        <h2 id="sec-0">Installing</h2>
+<p>Download the LTS (Long-Term Support) release from the official Node.js downloads page, or install via a version manager like nvm so you can switch Node versions per project. Verify the install with node -v and npm -v in your terminal.</p>
+
+<h2 id="sec-1">The REPL</h2>
+<p>Typing node with no filename drops you into the REPL (Read–Eval–Print Loop): type an expression, press Enter, and see the result immediately — perfect for quick experiments before writing a whole file.</p>
+
+
+        <h3>Try it live</h3>
+        
+    <div class="codeblock" data-block="0">
+      <div class="codeblock__bar">
+        <div class="codeblock__dots"><span></span><span></span><span></span></div>
+        <span class="codeblock__filename">terminal</span>
+        <div class="codeblock__spacer"></div>
+        <button class="codeblock__btn" data-copy="0">&#10697; Copy</button>
+        <button class="codeblock__btn codeblock__btn--run" data-run="0">&#9654; Run</button>
+      </div>
+      <pre><code>console.<span class="tok-fn">log</span>(<span class="tok-str">"$ node -v"</span>);
+console.<span class="tok-fn">log</span>(<span class="tok-str">"v22.14.0"</span>);
+console.<span class="tok-fn">log</span>(<span class="tok-str">""</span>);
+console.<span class="tok-fn">log</span>(<span class="tok-str">"$ node"</span>);
+console.<span class="tok-fn">log</span>(<span class="tok-str">"&gt; 2 + 2"</span>);
+console.<span class="tok-fn">log</span>(<span class="tok-str">"4"</span>);
+console.<span class="tok-fn">log</span>(<span class="tok-str">"&gt; .exit"</span>);</code></pre>
+    </div>
+    
+    <div class="console" id="console-0">
+      <div class="console__bar"><span class="console__dot"></span>Console output</div>
+      <div class="console__body" id="console-body-0"><span class="console__placeholder">Click "Run" to execute this code and see live output.</span></div>
+    </div>
+    
+
+        <div class="lesson-nav">
+          
+    <a class="lesson-nav__btn lesson-nav__btn--prev" href="what-is-nodejs.html">
+      <div class="lesson-nav__dir">&larr; Previous</div>
+      <div class="lesson-nav__title">What is Node.js?</div>
+    </a>
+          
+    <a class="lesson-nav__btn lesson-nav__btn--next" href="first-program.html">
+      <div class="lesson-nav__dir">Next &rarr;</div>
+      <div class="lesson-nav__title">Your First Program</div>
+    </a>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc__card">
+          <div class="toc__title">On this page</div>
+          <a href="#sec-0">Installing</a><a href="#sec-1">The REPL</a>
+          <div class="reading-time">
+            <div class="reading-time__value">5 min</div>
+            <div class="reading-time__label">Reading time</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="../js/codeblock.js"></script>
+<script src="../js/lessons-data.js"></script>
+<script src="../js/sandbox.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  ETH_SITE.mount("curriculum", "install-repl", "../");
+  ETH_SITE.wireCodeBlocks(document, {"0":"console.log(\"$ node -v\");\nconsole.log(\"v22.14.0\");\nconsole.log(\"\");\nconsole.log(\"$ node\");\nconsole.log(\"> 2 + 2\");\nconsole.log(\"4\");\nconsole.log(\"> .exit\");"});
+</script>
+</body>
+</html>

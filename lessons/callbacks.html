@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Callbacks — Node.js Academy by ETH</title>
+<meta name="description" content="Node.js is non-blocking by default — slow operations (reading a file, a network request) take a callback function that runs later, once the work is done." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content">
+    <div class="content-with-toc">
+      <div class="content-main fade-up">
+        <span class="eyebrow">Asynchronous Node.js &bull; <span class="level-intermediate">Intermediate</span></span>
+        <h1>Callbacks</h1>
+        <p class="lede">Node.js is non-blocking by default — slow operations (reading a file, a network request) take a callback function that runs later, once the work is done.</p>
+
+        <h2 id="sec-0">The pattern</h2>
+<p>Node's classic convention is 'error-first callbacks': the first argument is either null or an Error, and the rest are results. This lets code keep running immediately instead of freezing while it waits.</p>
+
+
+        <h3>Try it live</h3>
+        
+    <div class="codeblock" data-block="0">
+      <div class="codeblock__bar">
+        <div class="codeblock__dots"><span></span><span></span><span></span></div>
+        <span class="codeblock__filename">callbacks.js</span>
+        <div class="codeblock__spacer"></div>
+        <button class="codeblock__btn" data-copy="0">&#10697; Copy</button>
+        <button class="codeblock__btn codeblock__btn--run" data-run="0">&#9654; Run</button>
+      </div>
+      <pre><code><span class="tok-kw">function</span> <span class="tok-fn">fetchScore</span>(id, callback){
+  <span class="tok-fn">setTimeout</span>(() =&gt; {
+    <span class="tok-kw">if</span> (id &lt;= <span class="tok-num">0</span>) <span class="tok-kw">return</span> <span class="tok-fn">callback</span>(<span class="tok-kw">new</span> <span class="tok-fn">Error</span>(<span class="tok-str">"Invalid id"</span>));
+    <span class="tok-fn">callback</span>(<span class="tok-kw">null</span>, { id, score: <span class="tok-num">87</span> });
+  }, <span class="tok-num">500</span>);
+}
+
+console.<span class="tok-fn">log</span>(<span class="tok-str">"Requesting score..."</span>);
+
+<span class="tok-fn">fetchScore</span>(<span class="tok-num">1</span>, (err, result) =&gt; {
+  <span class="tok-kw">if</span> (err) <span class="tok-kw">return</span> console.<span class="tok-fn">error</span>(err.message);
+  console.<span class="tok-fn">log</span>(<span class="tok-str">"Got result:"</span>, result);
+});
+
+console.<span class="tok-fn">log</span>(<span class="tok-str">"...this line runs BEFORE the result (non-blocking!)"</span>);</code></pre>
+    </div>
+    
+    <div class="console" id="console-0">
+      <div class="console__bar"><span class="console__dot"></span>Console output</div>
+      <div class="console__body" id="console-body-0"><span class="console__placeholder">Click "Run" to execute this code and see live output.</span></div>
+    </div>
+    
+
+        <div class="lesson-nav">
+          
+    <a class="lesson-nav__btn lesson-nav__btn--prev" href="global-objects.html">
+      <div class="lesson-nav__dir">&larr; Previous</div>
+      <div class="lesson-nav__title">Global Objects: process, __dirname, global</div>
+    </a>
+          
+    <a class="lesson-nav__btn lesson-nav__btn--next" href="promises.html">
+      <div class="lesson-nav__dir">Next &rarr;</div>
+      <div class="lesson-nav__title">Promises</div>
+    </a>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc__card">
+          <div class="toc__title">On this page</div>
+          <a href="#sec-0">The pattern</a>
+          <div class="reading-time">
+            <div class="reading-time__value">7 min</div>
+            <div class="reading-time__label">Reading time</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="../js/codeblock.js"></script>
+<script src="../js/lessons-data.js"></script>
+<script src="../js/sandbox.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  ETH_SITE.mount("curriculum", "callbacks", "../");
+  ETH_SITE.wireCodeBlocks(document, {"0":"function fetchScore(id, callback){\n  setTimeout(() => {\n    if (id <= 0) return callback(new Error(\"Invalid id\"));\n    callback(null, { id, score: 87 });\n  }, 500);\n}\n\nconsole.log(\"Requesting score...\");\n\nfetchScore(1, (err, result) => {\n  if (err) return console.error(err.message);\n  console.log(\"Got result:\", result);\n});\n\nconsole.log(\"...this line runs BEFORE the result (non-blocking!)\");"});
+</script>
+</body>
+</html>

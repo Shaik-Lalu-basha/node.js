@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: eth-nodejs-academy
+    runtime: static
+    buildCommand: "echo 'No build needed — static HTML/CSS/JS site'"
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: false

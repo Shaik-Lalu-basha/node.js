@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OS Module — Node.js Academy by ETH</title>
+<meta name="description" content="The os module reports information about the machine Node.js is running on — useful for logging, diagnostics, and scaling decisions." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content">
+    <div class="content-with-toc">
+      <div class="content-main fade-up">
+        <span class="eyebrow">Core Modules &bull; <span class="level-intermediate">Intermediate</span></span>
+        <h1>OS Module</h1>
+        <p class="lede">The os module reports information about the machine Node.js is running on — useful for logging, diagnostics, and scaling decisions.</p>
+
+        <h2 id="sec-0">What you can inspect</h2>
+<p>From CPU count to free memory, os.* is how a Node process becomes aware of its own environment — handy when deciding how many worker processes to spin up on a given server.</p>
+
+
+        <h3>Try it live</h3>
+        
+    <div class="codeblock" data-block="0">
+      <div class="codeblock__bar">
+        <div class="codeblock__dots"><span></span><span></span><span></span></div>
+        <span class="codeblock__filename">os-demo.js</span>
+        <div class="codeblock__spacer"></div>
+        <button class="codeblock__btn" data-copy="0">&#10697; Copy</button>
+        <button class="codeblock__btn codeblock__btn--run" data-run="0">&#9654; Run</button>
+      </div>
+      <pre><code><span class="tok-kw">const</span> os = <span class="tok-kw">require</span>(<span class="tok-str">"os"</span>);
+
+console.<span class="tok-fn">log</span>(<span class="tok-str">"Platform:"</span>, os.<span class="tok-fn">platform</span>());
+console.<span class="tok-fn">log</span>(<span class="tok-str">"Architecture:"</span>, os.<span class="tok-fn">arch</span>());
+console.<span class="tok-fn">log</span>(<span class="tok-str">"CPU cores:"</span>, os.<span class="tok-fn">cpus</span>().length);
+console.<span class="tok-fn">log</span>(<span class="tok-str">"Total memory (GB):"</span>, (os.<span class="tok-fn">totalmem</span>() / 1e9).<span class="tok-fn">toFixed</span>(<span class="tok-num">1</span>));
+console.<span class="tok-fn">log</span>(<span class="tok-str">"Free memory (GB):"</span>, (os.<span class="tok-fn">freemem</span>() / 1e9).<span class="tok-fn">toFixed</span>(<span class="tok-num">1</span>));</code></pre>
+    </div>
+    
+    <div class="console" id="console-0">
+      <div class="console__bar"><span class="console__dot"></span>Console output</div>
+      <div class="console__body" id="console-body-0"><span class="console__placeholder">Click "Run" to execute this code and see live output.</span></div>
+    </div>
+    
+
+        <div class="lesson-nav">
+          
+    <a class="lesson-nav__btn lesson-nav__btn--prev" href="path-module.html">
+      <div class="lesson-nav__dir">&larr; Previous</div>
+      <div class="lesson-nav__title">Path Module</div>
+    </a>
+          
+    <a class="lesson-nav__btn lesson-nav__btn--next" href="events-eventemitter.html">
+      <div class="lesson-nav__dir">Next &rarr;</div>
+      <div class="lesson-nav__title">Events & EventEmitter</div>
+    </a>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc__card">
+          <div class="toc__title">On this page</div>
+          <a href="#sec-0">What you can inspect</a>
+          <div class="reading-time">
+            <div class="reading-time__value">4 min</div>
+            <div class="reading-time__label">Reading time</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="../js/codeblock.js"></script>
+<script src="../js/lessons-data.js"></script>
+<script src="../js/sandbox.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  ETH_SITE.mount("curriculum", "os-module", "../");
+  ETH_SITE.wireCodeBlocks(document, {"0":"const os = require(\"os\");\n\nconsole.log(\"Platform:\", os.platform());\nconsole.log(\"Architecture:\", os.arch());\nconsole.log(\"CPU cores:\", os.cpus().length);\nconsole.log(\"Total memory (GB):\", (os.totalmem() / 1e9).toFixed(1));\nconsole.log(\"Free memory (GB):\", (os.freemem() / 1e9).toFixed(1));"});
+</script>
+</body>
+</html>

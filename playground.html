@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Live Playground — Node.js Academy | Escort Tech Hub</title>
+<meta name="description" content="Write and run Node.js-flavored JavaScript directly in your browser." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content" style="max-width:1400px;">
+    <span class="eyebrow">Playground</span>
+    <h1>Live Node.js Playground</h1>
+    <p class="lede">
+      Write JavaScript on the left, press <b>Run</b>, and watch real output on the right. Core Node modules
+      (<code>fs</code>, <code>path</code>, <code>os</code>, <code>http</code>, <code>events</code>, <code>util</code>, <code>crypto</code>) are simulated here so common patterns work
+      without a server — edit the code and re-run any time to see the output change.
+    </p>
+
+    <div style="display:flex; gap:10px; margin:6px 0 16px; flex-wrap:wrap;">
+      <select id="exampleSelect" class="codeblock__btn" style="background:var(--paper-0); color:var(--ink-700); border-color:var(--border-soft);"></select>
+      <button id="runBtn" class="codeblock__btn codeblock__btn--run">▶ Run Code</button>
+      <button id="clearBtn" class="codeblock__btn" style="background:var(--paper-0); color:var(--ink-700); border-color:var(--border-soft);">Clear console</button>
+      <button id="resetBtn" class="codeblock__btn" style="background:var(--paper-0); color:var(--ink-700); border-color:var(--border-soft);">Reset code</button>
+    </div>
+
+    <div class="playground">
+      <div class="pg-pane">
+        <div class="pg-pane__bar"><span class="label">📝 editor.js</span></div>
+        <textarea id="pgEditor" class="pg-editor" spellcheck="false"></textarea>
+      </div>
+      <div class="pg-pane">
+        <div class="pg-pane__bar"><span class="label">▣ console output</span></div>
+        <div id="pgConsole" class="pg-console"><span class="console__placeholder">Press "Run Code" (or Ctrl/Cmd + Enter) to execute.</span></div>
+      </div>
+    </div>
+
+    <div class="callout callout--tip" style="margin-top:22px;">
+      <div class="callout__icon">⌨️</div>
+      <p>Tip: press <code>Ctrl/Cmd + Enter</code> inside the editor to run instantly, just like a real terminal shortcut.</p>
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="js/codeblock.js"></script>
+<script src="js/lessons-data.js"></script>
+<script src="js/sandbox.js"></script>
+<script src="js/main.js"></script>
+<script>
+  ETH_SITE.mount("playground", "playground", "");
+
+  const DEFAULT_CODE = `// Welcome to the ETH Node.js Playground!
+// Edit this code, then press Run.
+
+const fs = require('fs');
+const os = require('os');
+
+console.log('Hello from the ETH sandbox 👋');
+console.log('Platform:', os.platform());
+
+fs.readFile('notes.txt', 'utf-8', (err, data) => {
+  if (err) return console.error(err.message);
+  console.log('File contents:', data);
+});
+
+const total = [10, 20, 30].reduce((a, b) => a + b, 0);
+console.log('Sum:', total);
+`;
+
+  const editor = document.getElementById("pgEditor");
+  const consoleEl = document.getElementById("pgConsole");
+  const runBtn = document.getElementById("runBtn");
+  const clearBtn = document.getElementById("clearBtn");
+  const resetBtn = document.getElementById("resetBtn");
+  const exampleSelect = document.getElementById("exampleSelect");
+
+  editor.value = DEFAULT_CODE;
+
+  const runnableLessons = ETH_CURRICULUM.filter(l => l.code.runnable);
+  exampleSelect.innerHTML = `<option value="">Load a lesson example…</option>` +
+    runnableLessons.map(l => `<option value="${l.id}">${l.group} — ${l.title}</option>`).join("");
+
+  exampleSelect.addEventListener("change", () => {
+    if (!exampleSelect.value) return;
+    const lesson = ETH_LESSON_BY_ID[exampleSelect.value];
+    editor.value = lesson.code.code;
+    execute();
+  });
+
+  function execute(){
+    consoleEl.innerHTML = "";
+    runBtn.disabled = true;
+    runBtn.textContent = "⏳ Running…";
+    setTimeout(() => {
+      const { lines } = ETHSandbox.run(editor.value);
+      lines.forEach((line, i) => {
+        setTimeout(() => {
+          const el = document.createElement("div");
+          el.className = `line console__line--${line.type}`;
+          el.textContent = (line.type === "err" ? "✖ " : line.type === "info" ? "ℹ " : "› ") + line.text;
+          consoleEl.appendChild(el);
+          consoleEl.scrollTop = consoleEl.scrollHeight;
+        }, i * 55);
+      });
+      runBtn.disabled = false;
+      runBtn.textContent = "▶ Run Code";
+    }, 150);
+  }
+
+  runBtn.addEventListener("click", execute);
+  clearBtn.addEventListener("click", () => { consoleEl.innerHTML = '<span class="console__placeholder">Console cleared.</span>'; });
+  resetBtn.addEventListener("click", () => { editor.value = DEFAULT_CODE; });
+  editor.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") execute();
+  });
+</script>
+</body>
+</html>

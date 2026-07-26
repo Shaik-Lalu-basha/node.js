@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Objects & Arrays — Node.js Academy by ETH</title>
+<meta name="description" content="Objects and arrays are how you model almost everything in a Node.js program — from a single request body to an entire in-memory database." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content">
+    <div class="content-with-toc">
+      <div class="content-main fade-up">
+        <span class="eyebrow">Core JavaScript &bull; <span class="level-beginner">Beginner</span></span>
+        <h1>Objects & Arrays</h1>
+        <p class="lede">Objects and arrays are how you model almost everything in a Node.js program — from a single request body to an entire in-memory database.</p>
+
+        <h2 id="sec-0">Working with structured data</h2>
+<p>Destructuring, spread syntax, and array methods like map/filter/reduce let you transform data without writing manual loops — this is the everyday toolkit for handling JSON in Node.js APIs.</p>
+<ul class="bullets"><li>Destructuring: const { name, level } = student;</li><li>Spread: const copy = { ...original, updated: true };</li><li>map / filter / reduce for transforming arrays of data</li></ul>
+
+        <h3>Try it live</h3>
+        
+    <div class="codeblock" data-block="0">
+      <div class="codeblock__bar">
+        <div class="codeblock__dots"><span></span><span></span><span></span></div>
+        <span class="codeblock__filename">objects-arrays.js</span>
+        <div class="codeblock__spacer"></div>
+        <button class="codeblock__btn" data-copy="0">&#10697; Copy</button>
+        <button class="codeblock__btn codeblock__btn--run" data-run="0">&#9654; Run</button>
+      </div>
+      <pre><code><span class="tok-kw">const</span> student = { name: <span class="tok-str">"Anil"</span>, course: <span class="tok-str">"Node.js"</span>, level: <span class="tok-str">"Beginner"</span> };
+<span class="tok-kw">const</span> { name, course } = student;
+console.<span class="tok-fn">log</span>(<span class="tok-str">`${name} is learning ${course}`</span>);
+
+<span class="tok-kw">const</span> scores = [<span class="tok-num">72</span>, <span class="tok-num">88</span>, <span class="tok-num">95</span>, <span class="tok-num">60</span>, <span class="tok-num">79</span>];
+<span class="tok-kw">const</span> passing = scores.<span class="tok-fn">filter</span>(s =&gt; s &gt;= <span class="tok-num">70</span>);
+<span class="tok-kw">const</span> average = scores.<span class="tok-fn">reduce</span>((sum, s) =&gt; sum + s, <span class="tok-num">0</span>) / scores.length;
+
+console.<span class="tok-fn">log</span>(<span class="tok-str">"Passing scores:"</span>, passing);
+console.<span class="tok-fn">log</span>(<span class="tok-str">"Average:"</span>, average.<span class="tok-fn">toFixed</span>(<span class="tok-num">1</span>));
+
+<span class="tok-kw">const</span> upgraded = { ...student, level: <span class="tok-str">"Intermediate"</span> };
+console.<span class="tok-fn">log</span>(upgraded);</code></pre>
+    </div>
+    
+    <div class="console" id="console-0">
+      <div class="console__bar"><span class="console__dot"></span>Console output</div>
+      <div class="console__body" id="console-body-0"><span class="console__placeholder">Click "Run" to execute this code and see live output.</span></div>
+    </div>
+    
+
+        <div class="lesson-nav">
+          
+    <a class="lesson-nav__btn lesson-nav__btn--prev" href="functions.html">
+      <div class="lesson-nav__dir">&larr; Previous</div>
+      <div class="lesson-nav__title">Functions & Arrow Functions</div>
+    </a>
+          
+    <a class="lesson-nav__btn lesson-nav__btn--next" href="loops-conditionals.html">
+      <div class="lesson-nav__dir">Next &rarr;</div>
+      <div class="lesson-nav__title">Loops & Conditionals</div>
+    </a>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc__card">
+          <div class="toc__title">On this page</div>
+          <a href="#sec-0">Working with structured data</a>
+          <div class="reading-time">
+            <div class="reading-time__value">7 min</div>
+            <div class="reading-time__label">Reading time</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="../js/codeblock.js"></script>
+<script src="../js/lessons-data.js"></script>
+<script src="../js/sandbox.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  ETH_SITE.mount("curriculum", "objects-arrays", "../");
+  ETH_SITE.wireCodeBlocks(document, {"0":"const student = { name: \"Anil\", course: \"Node.js\", level: \"Beginner\" };\nconst { name, course } = student;\nconsole.log(`${name} is learning ${course}`);\n\nconst scores = [72, 88, 95, 60, 79];\nconst passing = scores.filter(s => s >= 70);\nconst average = scores.reduce((sum, s) => sum + s, 0) / scores.length;\n\nconsole.log(\"Passing scores:\", passing);\nconsole.log(\"Average:\", average.toFixed(1));\n\nconst upgraded = { ...student, level: \"Intermediate\" };\nconsole.log(upgraded);"});
+</script>
+</body>
+</html>

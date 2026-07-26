@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Async / Await — Node.js Academy by ETH</title>
+<meta name="description" content="async/await is syntax sugar over Promises that lets asynchronous code read like synchronous code — no chained .then() calls." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content">
+    <div class="content-with-toc">
+      <div class="content-main fade-up">
+        <span class="eyebrow">Asynchronous Node.js &bull; <span class="level-intermediate">Intermediate</span></span>
+        <h1>Async / Await</h1>
+        <p class="lede">async/await is syntax sugar over Promises that lets asynchronous code read like synchronous code — no chained .then() calls.</p>
+
+        <h2 id="sec-0">Why it's preferred</h2>
+<p>Mark a function async, then use await inside it to pause until a Promise settles. Wrap awaited calls in try/catch to handle rejections the same way you'd catch a thrown error.</p>
+
+
+        <h3>Try it live</h3>
+        
+    <div class="codeblock" data-block="0">
+      <div class="codeblock__bar">
+        <div class="codeblock__dots"><span></span><span></span><span></span></div>
+        <span class="codeblock__filename">async-await.js</span>
+        <div class="codeblock__spacer"></div>
+        <button class="codeblock__btn" data-copy="0">&#10697; Copy</button>
+        <button class="codeblock__btn codeblock__btn--run" data-run="0">&#9654; Run</button>
+      </div>
+      <pre><code><span class="tok-kw">function</span> <span class="tok-fn">delay</span>(ms, value){
+  <span class="tok-kw">return</span> <span class="tok-kw">new</span> <span class="tok-fn">Promise</span>(resolve =&gt; <span class="tok-fn">setTimeout</span>(() =&gt; <span class="tok-fn">resolve</span>(value), ms));
+}
+
+<span class="tok-kw">async</span> <span class="tok-kw">function</span> <span class="tok-fn">loadDashboard</span>(){
+  console.<span class="tok-fn">log</span>(<span class="tok-str">"Loading dashboard..."</span>);
+  <span class="tok-kw">try</span>{
+    <span class="tok-kw">const</span> user = <span class="tok-kw">await</span> <span class="tok-fn">delay</span>(<span class="tok-num">300</span>, { name: <span class="tok-str">"Anil"</span> });
+    console.<span class="tok-fn">log</span>(<span class="tok-str">"Step 1 — user:"</span>, user);
+
+    <span class="tok-kw">const</span> courses = <span class="tok-kw">await</span> <span class="tok-fn">delay</span>(<span class="tok-num">300</span>, [<span class="tok-str">"Node.js"</span>, <span class="tok-str">"Express"</span>, <span class="tok-str">"MongoDB"</span>]);
+    console.<span class="tok-fn">log</span>(<span class="tok-str">"Step 2 — courses:"</span>, courses);
+
+    console.<span class="tok-fn">log</span>(<span class="tok-str">"Dashboard ready ✅"</span>);
+  } <span class="tok-kw">catch</span>(err){
+    console.<span class="tok-fn">error</span>(<span class="tok-str">"Dashboard failed:"</span>, err.message);
+  }
+}
+
+<span class="tok-fn">loadDashboard</span>();</code></pre>
+    </div>
+    
+    <div class="console" id="console-0">
+      <div class="console__bar"><span class="console__dot"></span>Console output</div>
+      <div class="console__body" id="console-body-0"><span class="console__placeholder">Click "Run" to execute this code and see live output.</span></div>
+    </div>
+    
+
+        <div class="lesson-nav">
+          
+    <a class="lesson-nav__btn lesson-nav__btn--prev" href="promises.html">
+      <div class="lesson-nav__dir">&larr; Previous</div>
+      <div class="lesson-nav__title">Promises</div>
+    </a>
+          
+    <a class="lesson-nav__btn lesson-nav__btn--next" href="event-loop.html">
+      <div class="lesson-nav__dir">Next &rarr;</div>
+      <div class="lesson-nav__title">The Event Loop</div>
+    </a>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc__card">
+          <div class="toc__title">On this page</div>
+          <a href="#sec-0">Why it's preferred</a>
+          <div class="reading-time">
+            <div class="reading-time__value">7 min</div>
+            <div class="reading-time__label">Reading time</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="../js/codeblock.js"></script>
+<script src="../js/lessons-data.js"></script>
+<script src="../js/sandbox.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  ETH_SITE.mount("curriculum", "async-await", "../");
+  ETH_SITE.wireCodeBlocks(document, {"0":"function delay(ms, value){\n  return new Promise(resolve => setTimeout(() => resolve(value), ms));\n}\n\nasync function loadDashboard(){\n  console.log(\"Loading dashboard...\");\n  try{\n    const user = await delay(300, { name: \"Anil\" });\n    console.log(\"Step 1 — user:\", user);\n\n    const courses = await delay(300, [\"Node.js\", \"Express\", \"MongoDB\"]);\n    console.log(\"Step 2 — courses:\", courses);\n\n    console.log(\"Dashboard ready ✅\");\n  } catch(err){\n    console.error(\"Dashboard failed:\", err.message);\n  }\n}\n\nloadDashboard();"});
+</script>
+</body>
+</html>

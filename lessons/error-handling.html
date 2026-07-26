@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Error Handling & Debugging — Node.js Academy by ETH</title>
+<meta name="description" content="Robust Node.js apps handle errors deliberately at every layer — synchronous, async, and process-wide — instead of letting one bad request crash the whole server." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content">
+    <div class="content-with-toc">
+      <div class="content-main fade-up">
+        <span class="eyebrow">Advanced &bull; <span class="level-advanced">Advanced</span></span>
+        <h1>Error Handling & Debugging</h1>
+        <p class="lede">Robust Node.js apps handle errors deliberately at every layer — synchronous, async, and process-wide — instead of letting one bad request crash the whole server.</p>
+
+        <h2 id="sec-0">Layers of error handling</h2>
+<p>Use try/catch around synchronous code and awaited calls. Always attach .catch() to Promise chains. As a last line of defense, listen for process-level 'uncaughtException' and 'unhandledRejection' to log and shut down gracefully instead of crashing silently.</p>
+
+
+        <h3>Try it live</h3>
+        
+    <div class="codeblock" data-block="0">
+      <div class="codeblock__bar">
+        <div class="codeblock__dots"><span></span><span></span><span></span></div>
+        <span class="codeblock__filename">errors-demo.js</span>
+        <div class="codeblock__spacer"></div>
+        <button class="codeblock__btn" data-copy="0">&#10697; Copy</button>
+        <button class="codeblock__btn codeblock__btn--run" data-run="0">&#9654; Run</button>
+      </div>
+      <pre><code><span class="tok-kw">function</span> <span class="tok-fn">parseConfig</span>(json){
+  <span class="tok-kw">try</span>{
+    <span class="tok-kw">return</span> JSON.<span class="tok-fn">parse</span>(json);
+  } <span class="tok-kw">catch</span>(err){
+    console.<span class="tok-fn">error</span>(<span class="tok-str">"Invalid config JSON:"</span>, err.message);
+    <span class="tok-kw">return</span> <span class="tok-kw">null</span>;
+  }
+}
+
+console.<span class="tok-fn">log</span>(<span class="tok-fn">parseConfig</span>(<span class="tok-str">'{"port": 3000}'</span>));
+console.<span class="tok-fn">log</span>(<span class="tok-fn">parseConfig</span>(<span class="tok-str">'not valid json'</span>));
+
+<span class="tok-kw">async</span> <span class="tok-kw">function</span> <span class="tok-fn">riskyOperation</span>(){
+  <span class="tok-kw">throw</span> <span class="tok-kw">new</span> <span class="tok-fn">Error</span>(<span class="tok-str">"Database connection failed"</span>);
+}
+
+<span class="tok-fn">riskyOperation</span>().<span class="tok-kw">catch</span>(err =&gt; {
+  console.<span class="tok-fn">error</span>(<span class="tok-str">"Caught async error:"</span>, err.message);
+});</code></pre>
+    </div>
+    
+    <div class="console" id="console-0">
+      <div class="console__bar"><span class="console__dot"></span>Console output</div>
+      <div class="console__body" id="console-body-0"><span class="console__placeholder">Click "Run" to execute this code and see live output.</span></div>
+    </div>
+    
+
+        <div class="lesson-nav">
+          
+    <a class="lesson-nav__btn lesson-nav__btn--prev" href="streams-buffers.html">
+      <div class="lesson-nav__dir">&larr; Previous</div>
+      <div class="lesson-nav__title">Streams & Buffers</div>
+    </a>
+          
+    <a class="lesson-nav__btn lesson-nav__btn--next" href="env-config.html">
+      <div class="lesson-nav__dir">Next &rarr;</div>
+      <div class="lesson-nav__title">Environment Variables & Config</div>
+    </a>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc__card">
+          <div class="toc__title">On this page</div>
+          <a href="#sec-0">Layers of error handling</a>
+          <div class="reading-time">
+            <div class="reading-time__value">7 min</div>
+            <div class="reading-time__label">Reading time</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="../js/codeblock.js"></script>
+<script src="../js/lessons-data.js"></script>
+<script src="../js/sandbox.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  ETH_SITE.mount("curriculum", "error-handling", "../");
+  ETH_SITE.wireCodeBlocks(document, {"0":"function parseConfig(json){\n  try{\n    return JSON.parse(json);\n  } catch(err){\n    console.error(\"Invalid config JSON:\", err.message);\n    return null;\n  }\n}\n\nconsole.log(parseConfig('{\"port\": 3000}'));\nconsole.log(parseConfig('not valid json'));\n\nasync function riskyOperation(){\n  throw new Error(\"Database connection failed\");\n}\n\nriskyOperation().catch(err => {\n  console.error(\"Caught async error:\", err.message);\n});"});
+</script>
+</body>
+</html>

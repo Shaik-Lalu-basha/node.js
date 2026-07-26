@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Promises — Node.js Academy by ETH</title>
+<meta name="description" content="A Promise represents a value that isn't ready yet — pending, then either fulfilled or rejected. Promises replace deeply nested callbacks with readable chains." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content">
+    <div class="content-with-toc">
+      <div class="content-main fade-up">
+        <span class="eyebrow">Asynchronous Node.js &bull; <span class="level-intermediate">Intermediate</span></span>
+        <h1>Promises</h1>
+        <p class="lede">A Promise represents a value that isn't ready yet — pending, then either fulfilled or rejected. Promises replace deeply nested callbacks with readable chains.</p>
+
+        <h2 id="sec-0">.then / .catch</h2>
+<p>Chain .then() to handle success and .catch() to handle failure anywhere in the chain — a single .catch() at the end covers every step before it.</p>
+
+
+        <h3>Try it live</h3>
+        
+    <div class="codeblock" data-block="0">
+      <div class="codeblock__bar">
+        <div class="codeblock__dots"><span></span><span></span><span></span></div>
+        <span class="codeblock__filename">promises.js</span>
+        <div class="codeblock__spacer"></div>
+        <button class="codeblock__btn" data-copy="0">&#10697; Copy</button>
+        <button class="codeblock__btn codeblock__btn--run" data-run="0">&#9654; Run</button>
+      </div>
+      <pre><code><span class="tok-kw">function</span> <span class="tok-fn">fetchUser</span>(id){
+  <span class="tok-kw">return</span> <span class="tok-kw">new</span> <span class="tok-fn">Promise</span>((resolve, reject) =&gt; {
+    <span class="tok-fn">setTimeout</span>(() =&gt; {
+      id &gt; <span class="tok-num">0</span> ? <span class="tok-fn">resolve</span>({ id, name: <span class="tok-str">"Anil"</span> }) : <span class="tok-fn">reject</span>(<span class="tok-kw">new</span> <span class="tok-fn">Error</span>(<span class="tok-str">"Bad id"</span>));
+    }, <span class="tok-num">400</span>);
+  });
+}
+
+<span class="tok-fn">fetchUser</span>(<span class="tok-num">1</span>)
+  .<span class="tok-fn">then</span>(user =&gt; {
+    console.<span class="tok-fn">log</span>(<span class="tok-str">"User loaded:"</span>, user);
+    <span class="tok-kw">return</span> user.name.<span class="tok-fn">toUpperCase</span>();
+  })
+  .<span class="tok-fn">then</span>(upper =&gt; console.<span class="tok-fn">log</span>(<span class="tok-str">"Uppercased:"</span>, upper))
+  .<span class="tok-kw">catch</span>(err =&gt; console.<span class="tok-fn">error</span>(<span class="tok-str">"Failed:"</span>, err.message));</code></pre>
+    </div>
+    
+    <div class="console" id="console-0">
+      <div class="console__bar"><span class="console__dot"></span>Console output</div>
+      <div class="console__body" id="console-body-0"><span class="console__placeholder">Click "Run" to execute this code and see live output.</span></div>
+    </div>
+    
+
+        <div class="lesson-nav">
+          
+    <a class="lesson-nav__btn lesson-nav__btn--prev" href="callbacks.html">
+      <div class="lesson-nav__dir">&larr; Previous</div>
+      <div class="lesson-nav__title">Callbacks</div>
+    </a>
+          
+    <a class="lesson-nav__btn lesson-nav__btn--next" href="async-await.html">
+      <div class="lesson-nav__dir">Next &rarr;</div>
+      <div class="lesson-nav__title">Async / Await</div>
+    </a>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc__card">
+          <div class="toc__title">On this page</div>
+          <a href="#sec-0">.then / .catch</a>
+          <div class="reading-time">
+            <div class="reading-time__value">7 min</div>
+            <div class="reading-time__label">Reading time</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="../js/codeblock.js"></script>
+<script src="../js/lessons-data.js"></script>
+<script src="../js/sandbox.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  ETH_SITE.mount("curriculum", "promises", "../");
+  ETH_SITE.wireCodeBlocks(document, {"0":"function fetchUser(id){\n  return new Promise((resolve, reject) => {\n    setTimeout(() => {\n      id > 0 ? resolve({ id, name: \"Anil\" }) : reject(new Error(\"Bad id\"));\n    }, 400);\n  });\n}\n\nfetchUser(1)\n  .then(user => {\n    console.log(\"User loaded:\", user);\n    return user.name.toUpperCase();\n  })\n  .then(upper => console.log(\"Uppercased:\", upper))\n  .catch(err => console.error(\"Failed:\", err.message));"});
+</script>
+</body>
+</html>

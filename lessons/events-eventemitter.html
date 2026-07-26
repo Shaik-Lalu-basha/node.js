@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Events & EventEmitter — Node.js Academy by ETH</title>
+<meta name="description" content="Node.js is built around events. The events module exposes EventEmitter, the pattern every core module (http, streams) is quietly built on top of." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content">
+    <div class="content-with-toc">
+      <div class="content-main fade-up">
+        <span class="eyebrow">Core Modules &bull; <span class="level-intermediate">Intermediate</span></span>
+        <h1>Events & EventEmitter</h1>
+        <p class="lede">Node.js is built around events. The events module exposes EventEmitter, the pattern every core module (http, streams) is quietly built on top of.</p>
+
+        <h2 id="sec-0">Emit and listen</h2>
+<p>Create an emitter, subscribe with .on(), and trigger listeners with .emit(). This decouples the code that detects something happened from the code that reacts to it.</p>
+
+
+        <h3>Try it live</h3>
+        
+    <div class="codeblock" data-block="0">
+      <div class="codeblock__bar">
+        <div class="codeblock__dots"><span></span><span></span><span></span></div>
+        <span class="codeblock__filename">events-demo.js</span>
+        <div class="codeblock__spacer"></div>
+        <button class="codeblock__btn" data-copy="0">&#10697; Copy</button>
+        <button class="codeblock__btn codeblock__btn--run" data-run="0">&#9654; Run</button>
+      </div>
+      <pre><code><span class="tok-kw">const</span> { EventEmitter } = <span class="tok-kw">require</span>(<span class="tok-str">"events"</span>);
+
+<span class="tok-kw">class</span> OrderSystem <span class="tok-kw">extends</span> EventEmitter {}
+<span class="tok-kw">const</span> orders = <span class="tok-kw">new</span> <span class="tok-fn">OrderSystem</span>();
+
+orders.<span class="tok-fn">on</span>(<span class="tok-str">"order:placed"</span>, (order) =&gt; {
+  console.<span class="tok-fn">log</span>(<span class="tok-str">"📦 New order received:"</span>, order);
+});
+
+orders.<span class="tok-fn">on</span>(<span class="tok-str">"order:placed"</span>, (order) =&gt; {
+  console.<span class="tok-fn">log</span>(<span class="tok-str">"✉️  Sending confirmation email for order"</span>, order.id);
+});
+
+orders.<span class="tok-fn">emit</span>(<span class="tok-str">"order:placed"</span>, { id: <span class="tok-num">101</span>, item: <span class="tok-str">"Node.js Course"</span> });</code></pre>
+    </div>
+    
+    <div class="console" id="console-0">
+      <div class="console__bar"><span class="console__dot"></span>Console output</div>
+      <div class="console__body" id="console-body-0"><span class="console__placeholder">Click "Run" to execute this code and see live output.</span></div>
+    </div>
+    
+
+        <div class="lesson-nav">
+          
+    <a class="lesson-nav__btn lesson-nav__btn--prev" href="os-module.html">
+      <div class="lesson-nav__dir">&larr; Previous</div>
+      <div class="lesson-nav__title">OS Module</div>
+    </a>
+          
+    <a class="lesson-nav__btn lesson-nav__btn--next" href="http-server.html">
+      <div class="lesson-nav__dir">Next &rarr;</div>
+      <div class="lesson-nav__title">Building an HTTP Server</div>
+    </a>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc__card">
+          <div class="toc__title">On this page</div>
+          <a href="#sec-0">Emit and listen</a>
+          <div class="reading-time">
+            <div class="reading-time__value">7 min</div>
+            <div class="reading-time__label">Reading time</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="../js/codeblock.js"></script>
+<script src="../js/lessons-data.js"></script>
+<script src="../js/sandbox.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  ETH_SITE.mount("curriculum", "events-eventemitter", "../");
+  ETH_SITE.wireCodeBlocks(document, {"0":"const { EventEmitter } = require(\"events\");\n\nclass OrderSystem extends EventEmitter {}\nconst orders = new OrderSystem();\n\norders.on(\"order:placed\", (order) => {\n  console.log(\"📦 New order received:\", order);\n});\n\norders.on(\"order:placed\", (order) => {\n  console.log(\"✉️  Sending confirmation email for order\", order.id);\n});\n\norders.emit(\"order:placed\", { id: 101, item: \"Node.js Course\" });"});
+</script>
+</body>
+</html>

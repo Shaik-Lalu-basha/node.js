@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Middleware Pattern — Node.js Academy by ETH</title>
+<meta name="description" content="Middleware is a chain of functions that each get a chance to inspect, modify, or reject a request before it reaches its final handler — the backbone of Express." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content">
+    <div class="content-with-toc">
+      <div class="content-main fade-up">
+        <span class="eyebrow">Advanced &bull; <span class="level-advanced">Advanced</span></span>
+        <h1>The Middleware Pattern</h1>
+        <p class="lede">Middleware is a chain of functions that each get a chance to inspect, modify, or reject a request before it reaches its final handler — the backbone of Express.</p>
+
+        <h2 id="sec-0">How it composes</h2>
+<p>Each middleware function receives req, res, and a next() callback. Calling next() passes control to the next function in the chain; not calling it stops the request there (e.g. after sending an error response).</p>
+
+
+        <h3>Try it live</h3>
+        
+    <div class="codeblock" data-block="0">
+      <div class="codeblock__bar">
+        <div class="codeblock__dots"><span></span><span></span><span></span></div>
+        <span class="codeblock__filename">middleware-demo.js</span>
+        <div class="codeblock__spacer"></div>
+        <button class="codeblock__btn" data-copy="0">&#10697; Copy</button>
+        <button class="codeblock__btn codeblock__btn--run" data-run="0">&#9654; Run</button>
+      </div>
+      <pre><code><span class="tok-kw">function</span> <span class="tok-fn">logger</span>(req, next){
+  console.<span class="tok-fn">log</span>(<span class="tok-str">`[LOG] ${req.method} ${req.url}`</span>);
+  <span class="tok-fn">next</span>();
+}
+
+<span class="tok-kw">function</span> <span class="tok-fn">auth</span>(req, next){
+  <span class="tok-kw">if</span> (!req.token) {
+    console.<span class="tok-fn">error</span>(<span class="tok-str">"[AUTH] Rejected — no token provided"</span>);
+    <span class="tok-kw">return</span>;
+  }
+  console.<span class="tok-fn">log</span>(<span class="tok-str">"[AUTH] Passed"</span>);
+  <span class="tok-fn">next</span>();
+}
+
+<span class="tok-kw">function</span> <span class="tok-fn">handler</span>(req){
+  console.<span class="tok-fn">log</span>(<span class="tok-str">"[HANDLER] Responding to"</span>, req.url);
+}
+
+<span class="tok-kw">function</span> <span class="tok-fn">runChain</span>(req, chain){
+  <span class="tok-kw">let</span> i = <span class="tok-num">0</span>;
+  <span class="tok-kw">function</span> <span class="tok-fn">next</span>(){
+    <span class="tok-kw">const</span> fn = chain[i++];
+    <span class="tok-kw">if</span> (fn) <span class="tok-fn">fn</span>(req, next);
+  }
+  <span class="tok-fn">next</span>();
+}
+
+<span class="tok-fn">runChain</span>({ method: <span class="tok-str">"GET"</span>, url: <span class="tok-str">"/profile"</span>, token: <span class="tok-str">"abc123"</span> }, [logger, auth, handler]);</code></pre>
+    </div>
+    
+    <div class="console" id="console-0">
+      <div class="console__bar"><span class="console__dot"></span>Console output</div>
+      <div class="console__body" id="console-body-0"><span class="console__placeholder">Click "Run" to execute this code and see live output.</span></div>
+    </div>
+    
+
+        <div class="lesson-nav">
+          
+    <a class="lesson-nav__btn lesson-nav__btn--prev" href="env-config.html">
+      <div class="lesson-nav__dir">&larr; Previous</div>
+      <div class="lesson-nav__title">Environment Variables & Config</div>
+    </a>
+          
+    <a class="lesson-nav__btn lesson-nav__btn--next" href="deploy-render.html">
+      <div class="lesson-nav__dir">Next &rarr;</div>
+      <div class="lesson-nav__title">Deploying to Render</div>
+    </a>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc__card">
+          <div class="toc__title">On this page</div>
+          <a href="#sec-0">How it composes</a>
+          <div class="reading-time">
+            <div class="reading-time__value">7 min</div>
+            <div class="reading-time__label">Reading time</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="../js/codeblock.js"></script>
+<script src="../js/lessons-data.js"></script>
+<script src="../js/sandbox.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  ETH_SITE.mount("curriculum", "middleware-pattern", "../");
+  ETH_SITE.wireCodeBlocks(document, {"0":"function logger(req, next){\n  console.log(`[LOG] ${req.method} ${req.url}`);\n  next();\n}\n\nfunction auth(req, next){\n  if (!req.token) {\n    console.error(\"[AUTH] Rejected — no token provided\");\n    return;\n  }\n  console.log(\"[AUTH] Passed\");\n  next();\n}\n\nfunction handler(req){\n  console.log(\"[HANDLER] Responding to\", req.url);\n}\n\nfunction runChain(req, chain){\n  let i = 0;\n  function next(){\n    const fn = chain[i++];\n    if (fn) fn(req, next);\n  }\n  next();\n}\n\nrunChain({ method: \"GET\", url: \"/profile\", token: \"abc123\" }, [logger, auth, handler]);"});
+</script>
+</body>
+</html>

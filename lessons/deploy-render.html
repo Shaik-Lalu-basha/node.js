@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Deploying to Render — Node.js Academy by ETH</title>
+<meta name="description" content="Render deploys a Node.js app straight from a Git repository — push code, Render builds it, installs dependencies, and runs your start script." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content">
+    <div class="content-with-toc">
+      <div class="content-main fade-up">
+        <span class="eyebrow">Advanced &bull; <span class="level-advanced">Advanced</span></span>
+        <h1>Deploying to Render</h1>
+        <p class="lede">Render deploys a Node.js app straight from a Git repository — push code, Render builds it, installs dependencies, and runs your start script.</p>
+
+        <h2 id="sec-0">The checklist</h2>
+<p>Render needs three things from your project: a package.json with a start script, your app listening on process.env.PORT (not a hard-coded port), and your code pushed to a connected Git repository.</p>
+<ul class="bullets"><li>package.json → "scripts": { "start": "node app.js" }</li><li>app.listen(process.env.PORT || 3000, ...) — Render assigns the port dynamically</li><li>Create a new 'Web Service' on Render, connect the repo, set the build command (npm install) and start command (npm start)</li><li>Add any secrets (API keys, DB URLs) under Render's Environment tab instead of committing a .env file</li></ul>
+
+        <h3>Try it live</h3>
+        
+    <div class="codeblock" data-block="0">
+      <div class="codeblock__bar">
+        <div class="codeblock__dots"><span></span><span></span><span></span></div>
+        <span class="codeblock__filename">app.js</span>
+        <div class="codeblock__spacer"></div>
+        <button class="codeblock__btn" data-copy="0">&#10697; Copy</button>
+        <button class="codeblock__btn codeblock__btn--run" data-run="0">&#9654; Run</button>
+      </div>
+      <pre><code><span class="tok-kw">const</span> http = <span class="tok-kw">require</span>(<span class="tok-str">"http"</span>);
+
+<span class="tok-com">// Render injects PORT automatically — always read it from process.env</span>
+<span class="tok-kw">const</span> PORT = process.env.PORT || <span class="tok-num">3000</span>;
+
+<span class="tok-kw">const</span> server = http.<span class="tok-fn">createServer</span>((req, res) =&gt; {
+  res.<span class="tok-fn">end</span>(<span class="tok-str">"ETH Node.js app is live on Render 🚀"</span>);
+});
+
+server.<span class="tok-fn">listen</span>(PORT, () =&gt; {
+  console.<span class="tok-fn">log</span>(<span class="tok-str">`Ready — listening on port ${PORT}`</span>);
+});</code></pre>
+    </div>
+    
+    <div class="console" id="console-0">
+      <div class="console__bar"><span class="console__dot"></span>Console output</div>
+      <div class="console__body" id="console-body-0"><span class="console__placeholder">Click "Run" to execute this code and see live output.</span></div>
+    </div>
+    
+
+        <div class="lesson-nav">
+          
+    <a class="lesson-nav__btn lesson-nav__btn--prev" href="middleware-pattern.html">
+      <div class="lesson-nav__dir">&larr; Previous</div>
+      <div class="lesson-nav__title">The Middleware Pattern</div>
+    </a>
+          
+    <a class="lesson-nav__btn lesson-nav__btn--next" href="../playground.html">
+      <div class="lesson-nav__dir">Next &rarr;</div>
+      <div class="lesson-nav__title">Open the Live Playground</div>
+    </a>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc__card">
+          <div class="toc__title">On this page</div>
+          <a href="#sec-0">The checklist</a>
+          <div class="reading-time">
+            <div class="reading-time__value">6 min</div>
+            <div class="reading-time__label">Reading time</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="../js/codeblock.js"></script>
+<script src="../js/lessons-data.js"></script>
+<script src="../js/sandbox.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  ETH_SITE.mount("curriculum", "deploy-render", "../");
+  ETH_SITE.wireCodeBlocks(document, {"0":"const http = require(\"http\");\n\n// Render injects PORT automatically — always read it from process.env\nconst PORT = process.env.PORT || 3000;\n\nconst server = http.createServer((req, res) => {\n  res.end(\"ETH Node.js app is live on Render 🚀\");\n});\n\nserver.listen(PORT, () => {\n  console.log(`Ready — listening on port ${PORT}`);\n});"});
+</script>
+</body>
+</html>

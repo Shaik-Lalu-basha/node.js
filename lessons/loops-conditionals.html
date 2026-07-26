@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Loops & Conditionals — Node.js Academy by ETH</title>
+<meta name="description" content="Control flow in Node.js is identical to browser JavaScript — if/else, switch, for, while, and for...of/for...in." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<header id="site-topbar" class="topbar"></header>
+<nav id="site-sidebar" class="sidebar"></nav>
+
+<div class="shell">
+  <main class="content">
+    <div class="content-with-toc">
+      <div class="content-main fade-up">
+        <span class="eyebrow">Core JavaScript &bull; <span class="level-beginner">Beginner</span></span>
+        <h1>Loops & Conditionals</h1>
+        <p class="lede">Control flow in Node.js is identical to browser JavaScript — if/else, switch, for, while, and for...of/for...in.</p>
+
+        <h2 id="sec-0">Choosing the right loop</h2>
+<p>Use for...of to iterate values (arrays, strings, Maps, Sets). Use for...in to iterate object keys. Use a classic for loop when you need the index or fine control over the step.</p>
+
+
+        <h3>Try it live</h3>
+        
+    <div class="codeblock" data-block="0">
+      <div class="codeblock__bar">
+        <div class="codeblock__dots"><span></span><span></span><span></span></div>
+        <span class="codeblock__filename">control-flow.js</span>
+        <div class="codeblock__spacer"></div>
+        <button class="codeblock__btn" data-copy="0">&#10697; Copy</button>
+        <button class="codeblock__btn codeblock__btn--run" data-run="0">&#9654; Run</button>
+      </div>
+      <pre><code><span class="tok-kw">const</span> modules = [<span class="tok-str">"fs"</span>, <span class="tok-str">"http"</span>, <span class="tok-str">"path"</span>, <span class="tok-str">"events"</span>];
+
+<span class="tok-kw">for</span> (<span class="tok-kw">const</span> mod <span class="tok-kw">of</span> modules){
+  console.<span class="tok-fn">log</span>(<span class="tok-str">"Core module:"</span>, mod);
+}
+
+<span class="tok-kw">function</span> <span class="tok-fn">classify</span>(mark){
+  <span class="tok-kw">if</span> (mark &gt;= <span class="tok-num">90</span>) <span class="tok-kw">return</span> <span class="tok-str">"Excellent"</span>;
+  <span class="tok-kw">else</span> <span class="tok-kw">if</span> (mark &gt;= <span class="tok-num">70</span>) <span class="tok-kw">return</span> <span class="tok-str">"Good"</span>;
+  <span class="tok-kw">else</span> <span class="tok-kw">return</span> <span class="tok-str">"Needs practice"</span>;
+}
+
+[<span class="tok-num">95</span>, <span class="tok-num">74</span>, <span class="tok-num">55</span>].<span class="tok-fn">forEach</span>(m =&gt; console.<span class="tok-fn">log</span>(m, <span class="tok-str">"→"</span>, <span class="tok-fn">classify</span>(m)));</code></pre>
+    </div>
+    
+    <div class="console" id="console-0">
+      <div class="console__bar"><span class="console__dot"></span>Console output</div>
+      <div class="console__body" id="console-body-0"><span class="console__placeholder">Click "Run" to execute this code and see live output.</span></div>
+    </div>
+    
+
+        <div class="lesson-nav">
+          
+    <a class="lesson-nav__btn lesson-nav__btn--prev" href="objects-arrays.html">
+      <div class="lesson-nav__dir">&larr; Previous</div>
+      <div class="lesson-nav__title">Objects & Arrays</div>
+    </a>
+          
+    <a class="lesson-nav__btn lesson-nav__btn--next" href="modules-commonjs-esm.html">
+      <div class="lesson-nav__dir">Next &rarr;</div>
+      <div class="lesson-nav__title">Modules: CommonJS & ESM</div>
+    </a>
+        </div>
+      </div>
+
+      <aside class="toc">
+        <div class="toc__card">
+          <div class="toc__title">On this page</div>
+          <a href="#sec-0">Choosing the right loop</a>
+          <div class="reading-time">
+            <div class="reading-time__value">5 min</div>
+            <div class="reading-time__label">Reading time</div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="../js/codeblock.js"></script>
+<script src="../js/lessons-data.js"></script>
+<script src="../js/sandbox.js"></script>
+<script src="../js/main.js"></script>
+<script>
+  ETH_SITE.mount("curriculum", "loops-conditionals", "../");
+  ETH_SITE.wireCodeBlocks(document, {"0":"const modules = [\"fs\", \"http\", \"path\", \"events\"];\n\nfor (const mod of modules){\n  console.log(\"Core module:\", mod);\n}\n\nfunction classify(mark){\n  if (mark >= 90) return \"Excellent\";\n  else if (mark >= 70) return \"Good\";\n  else return \"Needs practice\";\n}\n\n[95, 74, 55].forEach(m => console.log(m, \"→\", classify(m)));"});
+</script>
+</body>
+</html>

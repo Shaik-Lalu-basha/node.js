@@ -3,130 +3,307 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Node.js Academy — About | Escort Tech Hub</title>
-<meta name="description" content="Learn Node.js from first principles to production deployment — free, interactive, and built by Escort Tech Hub." />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%233c873a%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<title>Node.js Academy — Learn JavaScript &amp; Node.js | Escort Tech Hub</title>
+<meta name="description" content="Learn Node.js and JavaScript from first principles to production deployment — free, interactive, and built by Escort Tech Hub." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%231F5E3A%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css" />
+<style>
+  :root{
+    --ink:#0F1712;
+    --ink-soft:#B9CBBE;
+    --ink-dim:#7C9086;
+    --paper:#F7F4EC;
+    --paper-dim:#EFEADE;
+    --forest:#1F5E3A;
+    --forest-700:#2B7A46;
+    --amber:#E8A33D;
+    --slate:#20261F;
+    --line-dark:rgba(15,23,18,0.10);
+    --radius:14px;
+    --maxw:1180px;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--slate);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{ font-family:'Space Grotesk', sans-serif; color:var(--slate); line-height:1.15; margin:0 0 .55em; letter-spacing:-0.01em; }
+  a{ color:inherit; text-decoration:none; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  .landing-shell{ min-height:100vh; }
+  .landing-nav{ position:sticky; top:0; z-index:40; background:rgba(247,244,236,0.88); backdrop-filter:blur(10px); border-bottom:1px solid var(--line-dark); }
+  .landing-nav__row{ max-width:var(--maxw); margin:0 auto; padding:16px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .landing-brand{ display:flex; align-items:center; gap:10px; font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:17px; }
+  .landing-brand__mark{ width:38px; height:38px; border-radius:10px; background:linear-gradient(135deg, var(--forest-700), var(--forest)); color:#fff; display:grid; place-items:center; font-family:'JetBrains Mono', monospace; font-size:14px; box-shadow:0 10px 24px rgba(31,94,58,0.24); }
+  .landing-links{ display:flex; gap:24px; align-items:center; }
+  .landing-links a{ font-size:14.5px; font-weight:500; color:var(--slate); opacity:.78; }
+  .landing-links a:hover{ opacity:1; }
+  .landing-nav__cta{ font-family:'JetBrains Mono', monospace; font-size:13.5px; font-weight:500; background:var(--forest); color:#fff; padding:9px 16px; border-radius:8px; }
+  .landing-nav__cta:hover{ background:var(--forest-700); }
+  .landing-hero{ background:linear-gradient(135deg, var(--ink) 0%, #15251d 100%); color:var(--ink-soft); padding:88px 0 96px; position:relative; overflow:hidden; }
+  .landing-hero::before{ content:""; position:absolute; inset:-20% auto auto -10%; width:320px; height:320px; border-radius:50%; background:radial-gradient(circle, rgba(232,163,61,0.25), transparent 70%); filter:blur(14px); animation:floatGlow 6s ease-in-out infinite; }
+  .landing-hero::after{ content:""; position:absolute; inset:auto -8% -10% auto; width:360px; height:360px; border-radius:50%; background:radial-gradient(circle, rgba(31,94,58,0.35), transparent 72%); filter:blur(16px); animation:floatGlow 8s ease-in-out infinite reverse; pointer-events:none; }
+  .landing-hero__grid{ position:relative; max-width:var(--maxw); margin:0 auto; padding:0 28px; display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center; }
+  .landing-hero h1{ color:#fff; font-size:clamp(32px, 4.5vw, 50px); margin:16px 0 20px; }
+  .landing-hero h1 em{ font-style:normal; color:var(--forest-700); background:linear-gradient(180deg, transparent 62%, rgba(43,122,70,0.35) 62%); }
+  .landing-hero .lede{ color:var(--ink-soft); font-size:17px; max-width:52ch; margin-bottom:32px; }
+  .landing-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+  .landing-btn{ display:inline-flex; align-items:center; justify-content:center; padding:13px 22px; border-radius:9px; font-weight:600; font-size:14.5px; transition:transform .15s, background .15s, border-color .15s; }
+  .landing-btn:hover{ transform:translateY(-2px); box-shadow:0 14px 26px rgba(0,0,0,0.16); }
+  .landing-btn--primary{ background:var(--forest-700); color:#fff; }
+  .landing-btn--primary:hover{ background:var(--forest); }
+  .landing-btn--ghost{ border:1px solid rgba(255,255,255,0.25); color:#fff; }
+  .landing-btn--ghost:hover{ border-color:rgba(255,255,255,0.5); }
+  .landing-terminal{ background:#0A100C; border:1px solid rgba(255,255,255,0.10); border-radius:16px; box-shadow:0 30px 70px -30px rgba(0,0,0,0.6); overflow:hidden; transform:translateY(0); animation:liftIn .8s ease both; }
+  .landing-terminal__bar{ display:flex; align-items:center; gap:8px; padding:11px 14px; background:#0D1410; border-bottom:1px solid rgba(255,255,255,0.08); }
+  .landing-terminal__dot{ width:10px; height:10px; border-radius:50%; }
+  .landing-terminal__body{ padding:20px 22px 24px; font-family:'JetBrains Mono', monospace; font-size:13px; color:#CFE3D5; min-height:270px; }
+  .landing-terminal__body p{ margin:0 0 5px; white-space:pre-wrap; }
+  .landing-terminal__kw{ color:#7FB6FF; }
+  .landing-terminal__str{ color:#E8A33D; }
+  .landing-terminal__fn{ color:#8FD6A6; }
+  .landing-terminal__prompt{ color:#8FD6A6; }
+  .landing-terminal__out{ color:#B9CBBE; }
+  .landing-caret{ display:inline-block; width:7px; height:14px; background:#8FD6A6; vertical-align:-2px; animation:blink 1s steps(1) infinite; }
+  @keyframes blink{ 50%{opacity:0;} }
+  @keyframes floatGlow{ 0%,100%{ transform:translate3d(0,0,0) scale(1); } 50%{ transform:translate3d(12px,-16px,0) scale(1.05); } }
+  @keyframes liftIn{ from{ opacity:0; transform:translateY(20px); } to{ opacity:1; transform:translateY(0); } }
+  .landing-section{ padding:84px 0; }
+  .landing-section--alt{ background:#F1EEE3; }
+  .landing-wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+  .landing-section__head{ max-width:640px; margin-bottom:44px; }
+  .landing-section__head h2{ font-size:clamp(24px, 3vw, 32px); margin-top:12px; }
+  .landing-section__head p{ color:#4A5148; font-size:15.5px; }
+  .landing-eyebrow{ display:inline-flex; align-items:center; gap:8px; font-family:'JetBrains Mono', monospace; font-size:12.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--forest-700); }
+  .landing-eyebrow::before{ content:"//"; color:var(--amber); }
+  .landing-about{ display:grid; grid-template-columns:1fr 360px; gap:48px; align-items:stretch; }
+  .landing-about__text p{ color:#3A4137; font-size:15.5px; margin:0 0 16px; }
+  .landing-stats{ display:flex; gap:28px; margin-top:24px; flex-wrap:wrap; }
+  .landing-stat b{ display:block; font-family:'Space Grotesk', sans-serif; font-size:26px; color:var(--forest-700); }
+  .landing-stat span{ font-size:12.5px; color:#6A7166; font-family:'JetBrains Mono', monospace; letter-spacing:.04em; }
+  .landing-card{ background:var(--ink); color:var(--ink-soft); border-radius:var(--radius); padding:30px 28px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px; box-shadow:0 20px 50px rgba(15,23,18,0.12); }
+  .landing-card__avatar{ width:76px; height:76px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg, var(--forest-700), var(--forest)); color:#fff; font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:22px; }
+  .landing-card__name{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:18px; color:#fff; margin:0; }
+  .landing-card__role{ font-size:13px; color:var(--amber); font-family:'JetBrains Mono', monospace; margin:0; }
+  .landing-card__bio{ font-size:13.5px; color:var(--ink-soft); margin:6px 0 4px; line-height:1.55; }
+  .landing-card__divider{ width:100%; height:1px; background:rgba(255,255,255,0.12); margin:6px 0 4px; }
+  .landing-card__meta{ width:100%; display:flex; align-items:center; justify-content:space-between; font-size:12.5px; margin-top:4px; }
+  .landing-card__meta span{ color:var(--ink-dim); font-family:'JetBrains Mono', monospace; }
+  .landing-card__meta b{ color:#fff; font-weight:600; }
+  .landing-service-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:20px; }
+  .landing-service-card{ background:#fff; border:1px solid var(--line-dark); border-radius:var(--radius); padding:26px 26px 24px; transition:transform .15s, box-shadow .15s, border-color .15s; position:relative; overflow:hidden; }
+  .landing-service-card::before{ content:""; position:absolute; inset:auto auto -24px -24px; width:90px; height:90px; background:radial-gradient(circle, rgba(31,94,58,0.10), transparent 70%); }
+  .landing-service-card:hover{ transform:translateY(-2px); box-shadow:0 18px 40px -26px rgba(20,40,28,0.35); border-color:rgba(31,94,58,0.25); }
+  .landing-service-card__icon{ width:38px; height:38px; border-radius:9px; margin-bottom:14px; display:flex; align-items:center; justify-content:center; background:rgba(31,94,58,0.10); color:var(--forest-700); font-family:'JetBrains Mono', monospace; font-weight:600; font-size:14px; }
+  .landing-service-card h3{ font-size:16.5px; margin-bottom:6px; }
+  .landing-service-card p{ font-size:14px; color:#565D51; margin:0; }
+  .landing-badge{ display:inline-block; font-family:'JetBrains Mono', monospace; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; color:#fff; background:var(--forest-700); padding:4px 10px; border-radius:6px; margin-bottom:14px; }
+  .landing-badge--amber{ background:var(--amber); color:#2A1F0A; }
+  .landing-list{ display:grid; grid-template-columns:1fr 1fr; gap:16px 40px; list-style:none; margin:0; padding:0; }
+  .landing-list li{ display:flex; gap:12px; align-items:flex-start; font-size:15px; color:#333A2F; }
+  .landing-list li::before{ content:"✓"; flex-shrink:0; width:22px; height:22px; border-radius:50%; background:rgba(31,94,58,0.12); color:var(--forest-700); font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; margin-top:2px; }
+  .landing-callout{ margin-top:40px; display:flex; gap:16px; align-items:flex-start; background:#fff; border:1px solid var(--line-dark); border-left:4px solid var(--forest-700); border-radius:10px; padding:20px 22px; box-shadow:0 10px 24px rgba(15,23,18,0.06); }
+  .landing-callout p{ margin:0; font-size:14.5px; color:#3A4137; }
+  .landing-callout a{ color:var(--forest-700); font-weight:600; }
+  .landing-cta{ background:var(--ink); color:#fff; text-align:center; padding:76px 0; }
+  .landing-cta h2{ color:#fff; font-size:clamp(24px, 3.4vw, 34px); }
+  .landing-cta p{ color:var(--ink-soft); max-width:52ch; margin:0 auto 30px; }
+  .landing-footer{ background:#0D1410; color:var(--ink-dim); padding:36px 0; font-size:13px; }
+  .landing-footer__row{ max-width:var(--maxw); margin:0 auto; padding:0 28px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; }
+  .landing-footer__row a{ color:var(--ink-soft); }
+  @media (max-width: 900px){ .landing-hero__grid{ grid-template-columns:1fr; } .landing-about{ grid-template-columns:1fr; } }
+  @media (max-width: 760px){ .landing-links{ display:none; } .landing-service-grid{ grid-template-columns:1fr; } .landing-list{ grid-template-columns:1fr; } }
+  @media (prefers-reduced-motion: reduce){ .landing-caret{ animation:none; } }
+</style>
 </head>
 <body>
 
-<header id="site-topbar" class="topbar"></header>
-<nav id="site-sidebar" class="sidebar"></nav>
+<div class="landing-shell">
+  <nav class="landing-nav">
+    <div class="landing-nav__row">
+      <a class="landing-brand" href="#top"><span class="landing-brand__mark">ETH</span>Node.js Academy</a>
+      <div class="landing-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#tracks">Tracks</a>
+        <a href="#provide">Platform</a>
+      </div>
+      <a class="landing-nav__cta" href="playground.html">Open Playground →</a>
+    </div>
+  </nav>
 
-<div class="shell">
-  <main class="content">
-    <div class="content-with-toc">
-
-      <div class="content-main fade-up">
-        <span class="eyebrow">About &bull; Node.js Academy</span>
-        <h1>About Node.js Academy</h1>
-        <p class="lede">
-          Node.js Academy is a free, interactive, project-driven curriculum for learning Node.js —
-          from your very first <code>console.log</code> to shipping a deployed API on Render.
-          Every lesson pairs a plain-English explanation with real, runnable code, so you see exactly
-          how a Node.js program changes as you change it.
-        </p>
-
-        <div class="hero-panel">
-          <div style="flex:1;">
-            <p>
-              Node.js is an asynchronous, event-driven JavaScript runtime built on Chrome's V8 engine.
-              It lets a single thread handle thousands of simultaneous connections by never blocking
-              on slow work like disk or network I/O — instead, it fires a callback once that work
-              finishes. This course walks through that model layer by layer: syntax first, the
-              module system next, then asynchronous programming, core modules, networking, and
-              finally the patterns used in real production servers.
-            </p>
-            <p>
-              Every code sample on this site runs in your browser through a built-in Node.js sandbox —
-              press <b>Run</b> under any snippet and watch the console fill in live, exactly like running
-              <code>node app.js</code> in a terminal.
-            </p>
-          </div>
-
-          <div class="founder-card">
-            <div class="founder-card__avatar">SLB</div>
-            <div class="founder-card__name">Shaik Lalu Basha</div>
-            <div class="founder-card__role">Founder &amp; Developer, Escort Tech Hub</div>
-            <p class="founder-card__bio">
-              Designed and built this platform end-to-end — curriculum, interactive sandbox,
-              and site — as part of Escort Tech Hub's mission to make practical software
-              education freely accessible.
-            </p>
-            <div class="founder-card__divider"></div>
-            <div class="founder-card__meta"><span>Organization</span><b>Escort Tech Hub</b></div>
-            <div class="founder-card__meta"><span>Platform</span><b>Node.js Academy</b></div>
-            <div class="founder-card__meta"><span>License</span><b>All rights reserved</b></div>
-          </div>
-        </div>
-
-        <h2 id="quickstart">A taste of Node.js</h2>
-        <p>Here's the same "Hello World" HTTP server every Node.js developer eventually writes. Press Run to execute it in the sandbox below.</p>
-
-        <div id="hero-code"></div>
-
-        <h2 id="stats">What's inside</h2>
-        <div class="stat-grid">
-          <div class="stat-card"><div class="stat-card__num" id="statLessons">0</div><div class="stat-card__label">Interactive lessons</div></div>
-          <div class="stat-card"><div class="stat-card__num" id="statGroups">0</div><div class="stat-card__label">Curriculum modules</div></div>
-          <div class="stat-card"><div class="stat-card__num">100%</div><div class="stat-card__label">Runnable code</div></div>
-          <div class="stat-card"><div class="stat-card__num">Free</div><div class="stat-card__label">Always</div></div>
-        </div>
-
-        <h2 id="paths">Learning path</h2>
-        <p>The curriculum is organized in the order most students actually need it — start at the top of the sidebar and work down.</p>
-        <div class="path-grid">
-          <a class="path-card" href="lessons/what-is-nodejs.html">
-            <div class="path-card__level">Beginner</div>
-            <div class="path-card__title">Getting Started &amp; Core JS</div>
-            <div class="path-card__desc">What Node.js is, installing it, the REPL, and the JavaScript fundamentals every lesson after this one builds on.</div>
-            <div class="path-card__link">Start here →</div>
-          </a>
-          <a class="path-card" href="lessons/callbacks.html">
-            <div class="path-card__level">Intermediate</div>
-            <div class="path-card__title">Async &amp; Core Modules</div>
-            <div class="path-card__desc">Callbacks, Promises, async/await, the event loop, and the built-in fs / http / events modules.</div>
-            <div class="path-card__link">Continue →</div>
-          </a>
-          <a class="path-card" href="lessons/streams-buffers.html">
-            <div class="path-card__level">Advanced</div>
-            <div class="path-card__title">Networking &amp; Production</div>
-            <div class="path-card__desc">HTTP servers, Express, streams, error handling, environment config, and deploying to Render.</div>
-            <div class="path-card__link">Go deeper →</div>
-          </a>
-        </div>
-
-        <h2 id="about-eth">About Escort Tech Hub</h2>
-        <p>
-          Escort Tech Hub (ETH) builds practical software — school management systems, web platforms, and
-          learning tools — under the direction of founder and developer Shaik Lalu Basha. Node.js Academy is
-          built and maintained by ETH as an open learning resource.
-        </p>
-        <div class="callout callout--tip">
-          <div class="callout__icon">💡</div>
-          <p>New here? Use the sidebar to move through the curriculum in order, or jump straight to the <a href="playground.html" style="color:var(--forest-700); font-weight:600;">Live Playground</a> to experiment freely.</p>
+  <header class="landing-hero" id="top">
+    <div class="landing-hero__grid">
+      <div>
+        <p>Escort Tech Hub · Node.js Academy</p>
+        <h1>Learn JavaScript and Node.js by <em>running real code</em>, not just reading it.</h1>
+        <p class="lede">A free, interactive home for learning backend development — structured lessons, a live sandbox, and practical examples that take you from your first script to a deployed API.</p>
+        <div class="landing-actions">
+          <a class="landing-btn landing-btn--primary" href="lessons/what-is-nodejs.html">Start Learning</a>
+          <a class="landing-btn landing-btn--ghost" href="playground.html">Open Live Playground</a>
         </div>
       </div>
-
-      <aside class="toc">
-        <div class="toc__card">
-          <div class="toc__title">On this page</div>
-          <a href="#quickstart">A taste of Node.js</a>
-          <a href="#stats">What's inside</a>
-          <a href="#paths">Learning path</a>
-          <a href="#about-eth">About Escort Tech Hub</a>
-          <div class="reading-time">
-            <div class="reading-time__value">3 min</div>
-            <div class="reading-time__label">Reading time</div>
-          </div>
+      <div class="landing-terminal">
+        <div class="landing-terminal__bar">
+          <span class="landing-terminal__dot" style="background:#FF5F57;"></span>
+          <span class="landing-terminal__dot" style="background:#FEBC2E;"></span>
+          <span class="landing-terminal__dot" style="background:#28C840;"></span>
+          <span class="mono" style="margin-left:8px; font-size:12px; color:#7C9086;">server.js</span>
         </div>
-      </aside>
-
+        <div class="landing-terminal__body">
+          <p><span class="landing-terminal__kw">const</span> { createServer } = <span class="landing-terminal__fn">require</span>(<span class="landing-terminal__str">'http'</span>);</p>
+          <p></p>
+          <p><span class="landing-terminal__kw">const</span> server = <span class="landing-terminal__fn">createServer</span>((req, res) => {</p>
+          <p>&nbsp;&nbsp;res.end(<span class="landing-terminal__str">'Hello World'</span>);</p>
+          <p>});</p>
+          <p></p>
+          <p>server.<span class="landing-terminal__fn">listen</span>(3000);</p>
+          <p></p>
+          <p><span class="landing-terminal__prompt">$ node server.js</span><span class="landing-caret"></span></p>
+          <p><span class="landing-terminal__out">Server running at http://127.0.0.1:3000/</span></p>
+        </div>
+      </div>
     </div>
-  </main>
-</div>
+  </header>
 
-<footer id="site-footer" class="site-footer"></footer>
+  <section class="landing-section" id="about">
+    <div class="landing-wrap landing-about">
+      <div class="landing-about__text">
+        <span style="color:var(--Red);">About the platform</span>
+        <h2>One platform built to make backend learning practical</h2>
+        <p>Escort Tech Hub brings together guided lessons, runnable examples, and an interactive sandbox so students and developers can learn Node.js and JavaScript by doing, not just reading about it. Every lesson pairs simple language with code you can run immediately.</p>
+        <p>The platform is designed and maintained end-to-end with a focus on clarity, real-world patterns, and a straightforward path from your first script to production deployment.</p>
+        <div class="landing-stats">
+          <div class="landing-stat"><b>40+</b><span>Lessons</span></div>
+          <div class="landing-stat"><b>4</b><span>Learning Tracks</span></div>
+          <div class="landing-stat"><b>1</b><span>Live Sandbox</span></div>
+        </div>
+      </div>
+      <div class="landing-card">
+        <div class="landing-card__avatar">SLB</div>
+        <p class="landing-card__name">Shaik Lalu Basha</p>
+        <p class="landing-card__role">Founder &amp; Developer</p>
+        <p class="landing-card__bio">Designed and built Node.js Academy end-to-end to make practical software education accessible to students, beginners, and developers.</p>
+        <div class="landing-card__divider"></div>
+        <div class="landing-card__meta"><span>Organization</span><b>Escort Tech Hub</b></div>
+        <div class="landing-card__meta"><span>Platform</span><b>Node.js Academy</b></div>
+        <div class="landing-card__meta"><span>Focus</span><b>Learning &amp; Development</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-section landing-section--alt" id="services">
+    <div class="landing-wrap">
+      <div class="landing-section__head">
+        <span class="landing-badge">Frontend</span>
+        <h2>JavaScript services</h2>
+        <p>Services for modern web development — front-end interaction, interface logic, and client-side behavior for sites, dashboards, and tools that need a smooth user experience.</p>
+      </div>
+      <div class="landing-service-grid">
+        <div class="landing-service-card">
+          <div class="landing-service-card__icon">UI</div>
+          <h3>Frontend Development</h3>
+          <p>Responsive, interactive pages and interfaces built with clean JavaScript logic.</p>
+        </div>
+        <div class="landing-service-card">
+          <div class="landing-service-card__icon">⚡</div>
+          <h3>Dynamic Web Applications</h3>
+          <p>Forms, animation, validation, and real-time interaction for better engagement.</p>
+        </div>
+        <div class="landing-service-card">
+          <div class="landing-service-card__icon">📘</div>
+          <h3>JavaScript Learning Support</h3>
+          <p>Beginner-friendly lessons covering variables, functions, objects, arrays, and logic.</p>
+        </div>
+        <div class="landing-service-card">
+          <div class="landing-service-card__icon">🐞</div>
+          <h3>Bug Fixing &amp; Debugging</h3>
+          <p>Identifying issues in JavaScript code and improving structure and reliability.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-section" id="tracks">
+    <div class="landing-wrap">
+      <div class="landing-section__head">
+        <span class="landing-badge landing-badge--amber">Backend</span>
+        <h2>Node.js services</h2>
+        <p>Backend services for servers, APIs, authentication, file handling, and database-connected applications — built for scalable, event-driven products.</p>
+      </div>
+      <div class="landing-service-grid">
+        <div class="landing-service-card">
+          <div class="landing-service-card__icon">API</div>
+          <h3>Backend API Development</h3>
+          <p>REST APIs and server-side logic for web apps, mobile apps, and internal systems.</p>
+        </div>
+        <div class="landing-service-card">
+          <div class="landing-service-card__icon">📁</div>
+          <h3>File System &amp; Server Handling</h3>
+          <p>File operations, routing, request processing, and server management with Node.js.</p>
+        </div>
+        <div class="landing-service-card">
+          <div class="landing-service-card__icon">🗄</div>
+          <h3>Database-Connected Applications</h3>
+          <p>Real data storage, login systems, and business workflows connected to your app.</p>
+        </div>
+        <div class="landing-service-card">
+          <div class="landing-service-card__icon">🚀</div>
+          <h3>Deployment &amp; Hosting Support</h3>
+          <p>Guidance moving applications from development to production, hosting, and config.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-section landing-section--alt" id="provide">
+    <div class="landing-wrap">
+      <div class="landing-section__head">
+       
+        <h2>What you get on this platform</h2>
+        <p>Education, examples, and tools together, so you can learn and practice without jumping between resources.</p>
+      </div>
+      <ul class="landing-list">
+        <li>Free, structured lessons from beginner to practical application level.</li>
+        <li>An interactive playground where code runs instantly in the browser.</li>
+        <li>Real-world examples connecting theory to actual programs and APIs.</li>
+        <li>Clear guidance on common web and backend development concepts.</li>
+        <li>A simple path to learn, build, and grow your technical skills.</li>
+        <li>Ongoing support as you move from lessons into your own projects.</li>
+      </ul>
+      <div class="landing-callout">
+        <p>New here? Open the <a href="playground.html">Live Playground</a> to experiment freely, or start with the curriculum to learn step by step.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-cta">
+    <div class="landing-wrap">
+     
+      <h2>Start with your first Node.js server today</h2>
+      <p>No setup required — the playground runs in your browser.</p>
+      <div class="landing-actions" style="justify-content:center;">
+        <a class="landing-btn landing-btn--primary" href="lessons/what-is-nodejs.html">Start Learning</a>
+        <a class="landing-btn landing-btn--ghost" href="playground.html">Open Playground</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="landing-footer">
+    <div class="landing-footer__row">
+      <span>© 2026 Escort Tech Hub — Node.js Academy</span>
+      <span><a href="#about">About</a> · <a href="playground.html">Playground</a> · <a href="lessons/what-is-nodejs.html">Lessons</a></span>
+    </div>
+  </footer>
+</div>
 
 <script src="js/codeblock.js"></script>
 <script src="js/lessons-data.js"></script>
@@ -134,31 +311,6 @@
 <script src="js/main.js"></script>
 <script>
   ETH_SITE.mount("about", "about", "");
-
-  document.getElementById("statLessons").textContent = ETH_CURRICULUM.length;
-  document.getElementById("statGroups").textContent = ETH_GROUPS.length;
-
-  const heroCode = {
-    filename: "server.js",
-    runnable: true,
-    code:
-`const { createServer } = require('http');
-
-const hostname = '127.0.0.1';
-const port = 3000;
-
-const server = createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
-});
-
-server.listen(port, hostname, () => {
-  console.log(\`Server running at http://\${hostname}:\${port}/\`);
-});`
-  };
-  document.getElementById("hero-code").innerHTML = ETH_SITE.renderCodeBlock(heroCode, 0);
-  ETH_SITE.wireCodeBlocks(document, { "0": heroCode.code });
 </script>
 </body>
 </html>

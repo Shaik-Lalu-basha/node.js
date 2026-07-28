@@ -1,0 +1,519 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lab Manual — Node.js Academy</title>
+<meta name="description" content="Node.js Academy lab manual with a step-by-step experiment navigator." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%231F5E3A%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="css/style.css" />
+<style>
+  :root{
+    --ink:#0F1712;
+    --ink-soft:#B9CBBE;
+    --paper:#F7F4EC;
+    --forest:#1F5E3A;
+    --forest-700:#2B7A46;
+    --amber:#E8A33D;
+    --slate:#20261F;
+    --line-dark:rgba(15,23,18,0.10);
+    --radius:14px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; min-height:100vh; background:var(--paper); color:var(--slate); font-family:'Inter',sans-serif;}
+  a{color:inherit; text-decoration:none;}
+  .page-shell{max-width:var(--maxw); margin:0 auto; padding:0 24px 56px;}
+  .topbar{position:sticky; top:0; z-index:20; background:rgba(247,244,236,0.96); border-bottom:1px solid var(--line-dark);}
+  .topbar__row{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 0;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px;}
+  .brand__mark{width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg,var(--forest-700),var(--forest)); color:#fff; display:grid; place-items:center; font-family:'JetBrains Mono',monospace; font-size:14px;}
+  .topnav{display:flex; gap:20px; flex-wrap:wrap;}
+  .topnav a{font-weight:600; color:var(--slate); opacity:.75; transition:opacity .2s;}
+  .topnav a:hover,.topnav a.is-active{opacity:1;}
+  .topnav a.is-active{color:var(--forest);}
+  .topbar__cta{font-family:'JetBrains Mono',monospace; font-size:13.5px; font-weight:500; background:var(--forest); color:#fff; padding:10px 18px; border-radius:10px;}
+  .hero{padding:64px 0 32px;}
+  .hero h1{font-size:clamp(32px,4vw,44px); margin:0 0 12px;}
+  .hero p{max-width:64ch; color:#374033; font-size:16px; margin:0 0 20px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{display:inline-flex; align-items:center; justify-content:center; padding:12px 20px; border-radius:10px; font-weight:600; transition:transform .15s,background .15s;}
+  .btn:hover{transform:translateY(-1px);}
+  .btn--primary{background:var(--forest); color:#fff;}
+  .btn--secondary{background:#fff; border:1px solid var(--line-dark); color:var(--slate);}
+  .lab-card{background:#fff; border:1px solid var(--line-dark); border-radius:20px; box-shadow:0 18px 40px rgba(15,23,18,0.08); padding:32px; margin-top:28px;}
+  .lab-stepper{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:22px;}
+  .lab-stepper__pill{font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--forest); background:rgba(31,94,58,0.08); border-radius:999px; padding:8px 14px;}
+  .lab-title{margin:0 0 12px; font-size:22px;}
+  .lab-description{color:#42483e; font-size:15.5px; line-height:1.8; margin:0 0 22px;}
+  .lab-meta{display:grid; grid-template-columns:repeat(3,minmax(90px,1fr)); gap:12px; margin-bottom:26px;}
+  .lab-meta__item{background:rgba(31,94,58,0.06); padding:14px 16px; border-radius:14px;}
+  .lab-meta__item b{display:block; font-size:15px; color:var(--forest); margin-bottom:4px;}
+  .lab-buttons{display:flex; gap:12px; flex-wrap:wrap;}
+  .lab-buttons button{border:none; cursor:pointer; border-radius:12px; padding:12px 18px; font-size:14px; font-weight:600;}
+  .lab-buttons button:disabled{opacity:.5; cursor:default;}
+  .lab-buttons .btn--prev{background:#fff; border:1px solid var(--line-dark); color:var(--slate);}
+  .lab-buttons .btn--next{background:var(--forest); color:#fff;}
+  .lab-answer{margin-top:28px; padding:24px; background:rgba(31,94,58,0.04); border-radius:18px; border:1px solid rgba(31,94,58,0.12);}
+  .lab-answer h3{margin:0 0 12px; font-size:18px;}
+  .lab-answer p{margin:0 0 16px; color:#3b4237; line-height:1.8;}
+  .code-block{background:#F6F4EC; border:1px solid var(--line-dark); border-radius:16px; padding:18px; white-space:pre-wrap; word-break:break-word; font-family:'JetBrains Mono',monospace; font-size:14px; line-height:1.5; margin:0;}
+  .console-output{background:#121810; color:#d4e8cc; border-radius:16px; padding:18px; min-height:140px; font-family:'JetBrains Mono',monospace; font-size:13px; overflow-x:auto;}
+  .console-output .line{margin:0 0 8px;}
+  .console-output .console__placeholder{color:#7d8b76;}
+  .run-sample-btn{margin-top:14px;}
+  .experiment-list{margin-top:36px;}
+  .experiment-list h2{margin-bottom:14px; font-size:20px;}
+  .experiment-list ol{padding-left:1.2rem; color:#3b4237;}
+  .experiment-list li{margin-bottom:10px; line-height:1.7;}
+  .experiment-list button{margin-top:12px; background:rgba(31,94,58,0.08); border:none; border-radius:10px; padding:10px 14px; color:var(--forest); cursor:pointer;}
+  .experiment-list button:hover{background:rgba(31,94,58,0.16);}
+  footer{padding:24px 0 40px; color:#5c6358; font-size:14px;}
+  .footer-links{display:flex; flex-wrap:wrap; gap:18px; align-items:center;}
+  @media(max-width:860px){.lab-meta{grid-template-columns:1fr;}.topbar__row{flex-direction:column; align-items:flex-start;}.hero{padding-top:44px;}}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="page-shell topbar__row">
+      <a class="brand" href="index.html"><span class="brand__mark">ETH</span>Node.js Academy</a>
+      <nav class="topnav">
+        <a href="index.html">Home</a>
+        <a href="lessons/what-is-nodejs.html">Curriculum</a>
+        <a href="lab-manual.html" class="is-active">Lab Manual</a>
+        <a href="playground.html">Playground</a>
+      </nav>
+      <a class="topbar__cta" href="playground.html">Open Playground</a>
+    </div>
+  </div>
+
+  <main class="page-shell">
+    <section class="hero">
+      <h1>Node.js Lab Manual</h1>
+      <p>Follow every lab experiment in order with details, objectives, outcomes, and a guided next-step flow. Use the buttons below to move through the full syllabus.</p>
+      <div class="hero-actions">
+        <a class="btn btn--primary" href="#lab-experiment">Open Current Experiment</a>
+        <a class="btn btn--secondary" href="#all-experiments">View All Experiments</a>
+      </div>
+    </section>
+
+    <article class="lab-card" id="lab-experiment">
+      <div class="lab-stepper">
+        <span class="lab-stepper__pill" id="stepLabel">Experiment 1 of 14</span>
+        <div class="lab-buttons">
+          <button class="btn--prev" id="prevBtn" disabled>Previous</button>
+          <button class="btn--next" id="nextBtn">Next</button>
+        </div>
+      </div>
+      <h2 class="lab-title" id="experimentTitle">Responsive shopping cart web app</h2>
+      <p class="lab-description" id="experimentDescription">Build a responsive web application for a shopping cart featuring registration, login, catalog, and cart pages using CSS3 features such as flexbox and grid.</p>
+      <div class="lab-meta">
+        <div class="lab-meta__item"><b>Objective</b><span id="experimentObjective">Create the full shopping cart flow with responsive layout.</span></div>
+        <div class="lab-meta__item"><b>Tools</b><span id="experimentTools">HTML, CSS3, flexbox, grid</span></div>
+        <div class="lab-meta__item"><b>Outcome</b><span id="experimentOutcome">A polished responsive storefront with login and cart pages.</span></div>
+      </div>
+      <div class="lab-buttons">
+        <button class="btn btn--secondary" id="restartBtn">Restart from Experiment 1</button>
+      </div>
+      <div class="lab-answer" id="labAnswer">
+        <h3>Answer</h3>
+        <p id="experimentAnswer">Open an experiment to see the lab answer, sample code, and output.</p>
+        <h3>Sample Code</h3>
+        <pre class="code-block" id="experimentCode">Select an experiment to reveal the code sample.</pre>
+        <button class="btn btn--secondary run-sample-btn" id="runSampleBtn" style="display:none;">Run Sample Code</button>
+        <div class="console-output" id="experimentOutput"><div class="console__placeholder">Output will appear here after running the sample code.</div></div>
+      </div>
+    </article>
+
+    <section class="experiment-list" id="all-experiments">
+      <h2>Complete Experiment Syllabus</h2>
+      <ol id="experimentList"></ol>
+    </section>
+
+    <footer>
+      <div class="footer-links">
+        <span>© 2026 Escort Tech Hub</span>
+        <a href="index.html">Home</a>
+        <a href="playground.html">Playground</a>
+        <a href="lessons/what-is-nodejs.html">First Lesson</a>
+      </div>
+    </footer>
+  </main>
+
+  <script src="js/sandbox.js"></script>
+  <script>
+    const experiments = [
+      {
+        title: "Responsive shopping cart web app",
+        description: "Build a responsive web application for shopping cart with registration, login, catalog and cart pages using CSS3 features, flexbox and grid.",
+        objective: "Design the full storefront and user flow with modern responsive CSS.",
+        tools: "HTML, CSS3, Flexbox, Grid",
+        outcome: "A responsive e-commerce demo with registration, login, catalog, and cart pages.",
+        answer: "Create the page sections for products, login, and cart; style them with CSS grid and flexbox; and add responsive breakpoints to keep the layout usable on phones and desktops.",
+        code: `const cart = [];
+function addItem(product) {
+  cart.push(product);
+  console.log('Added', product.name, '- total items:', cart.length);
+}
+function updateTotal() {
+  const total = cart.reduce((sum, item) => sum + item.price, 0);
+  console.log('Cart total:', total.toFixed(2));
+}
+addItem({name:'Shoes',price:49.99});
+addItem({name:'Bag',price:29.99});
+updateTotal();`,
+        runnable: true,
+        sampleOutput: "Added Shoes - total items: 1\nAdded Bag - total items: 2\nCart total: 79.98"
+      },
+      {
+        title: "Bootstrap responsive web application",
+        description: "Make the above web application responsive using the Bootstrap framework.",
+        objective: "Apply Bootstrap utilities and layout components to improve responsiveness.",
+        tools: "Bootstrap, HTML, CSS, responsive design",
+        outcome: "A mobile-friendly shopping app built with Bootstrap.",
+        answer: "Use Bootstrap container, row, and column classes to structure the page and responsive utilities to adapt the layout for smaller screens.",
+        code: `<!-- Example structure -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">Product list</div>
+    <div class="col-md-4">Cart summary</div>
+  </div>
+</div>`,
+        runnable: false,
+        sampleOutput: "The app becomes responsive on mobile using Bootstrap columns and utilities; products stack vertically on smaller screens."
+      },
+      {
+        title: "Client-side validation with JavaScript",
+        description: "Use JavaScript for doing client-side validation of the pages implemented in experiments 1 and 2.",
+        objective: "Add form validation, user feedback, and field rules in the frontend.",
+        tools: "JavaScript, DOM, form validation",
+        outcome: "Validated registration, login, and checkout forms with improved UX.",
+        answer: "Add event listeners for form submission, validate required fields and email format, and display inline validation feedback before submission.",
+        code: `function validateEmail(email) {
+  return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+}
+function validateForm(data) {
+  const errors = [];
+  if (!data.email || !validateEmail(data.email)) errors.push('Invalid email address');
+  if (!data.password || data.password.length < 6) errors.push('Password must be 6+ characters');
+  return errors;
+}
+const result = validateForm({email:'student@example.com', password:'pass123'});
+console.log(result.length ? 'Validation failed:' : 'Validation passed');
+console.log(result);`,
+        runnable: true,
+        sampleOutput: "Validation passed\n[]"
+      },
+      {
+        title: "ES6 features and weather graph",
+        description: "Explore ES6 features like arrow functions, callbacks, promises, async/await. Implement an application for reading weather information from openweathermap.org and display the information in the form of a graph on the web page.",
+        objective: "Use modern JavaScript for asynchronous API requests and visualization.",
+        tools: "ES6, Fetch API, async/await, charting, OpenWeatherMap",
+        outcome: "A weather dashboard that fetches data and shows it as a graph.",
+        answer: "Fetch weather data, transform it into chart labels and values, and use a chart library to visualize the result.",
+        code: `const weather = {
+  daily: [
+    {dt: 1700000000, temp:{day:28}},
+    {dt: 1700086400, temp:{day:30}},
+    {dt: 1700172800, temp:{day:27}}
+  ]
+};
+const points = weather.daily.map(day => ({
+  label: new Date(day.dt * 1000).toLocaleDateString(),
+  temp: day.temp.day
+}));
+console.log('Weather points:', points);`,
+        runnable: true,
+        sampleOutput: "Weather points: [{ label: '...', temp: 28 }, { label: '...', temp: 30 }, { label: '...', temp: 27 }]"
+      },
+      {
+        title: "Java standalone CRUD application",
+        description: "Develop a Java standalone application that connects with a database (Oracle/MySQL) and performs CRUD operations on database tables.",
+        objective: "Build a desktop-like Java app with database connectivity and CRUD flow.",
+        tools: "Java, JDBC, MySQL/Oracle, SQL",
+        outcome: "A database-connected Java app capable of creating, reading, updating, and deleting records.",
+        answer: "Open a JDBC connection, prepare SQL statements for inserts/updates/deletes, and display query results in the UI.",
+        code: `// Java pseudocode
+Connection conn = DriverManager.getConnection(url, user, pass);
+PreparedStatement stmt = conn.prepareStatement("INSERT INTO students(name,email) VALUES(?, ?)");
+stmt.setString(1, name);
+stmt.setString(2, email);
+stmt.executeUpdate();`,
+        runnable: false,
+        sampleOutput: "Student record inserted successfully; query returns existing records from the database."
+      },
+      {
+        title: "XML bookstore with DTD and XSD validation",
+        description: "Create an XML for the bookstore and validate it using both DTD and XSD.",
+        objective: "Learn XML schema design and validate data structures with document definitions.",
+        tools: "XML, DTD, XSD, validation",
+        outcome: "A bookstore XML document with both DTD and XSD validation support.",
+        answer: "Define bookstore XML and create matching DTD/XSD schemas to enforce structure and data types.",
+        code: `<!-- bookstore.xml -->
+<bookstore>
+  <book id="b1">
+    <title>Node.js Essentials</title>
+    <author>Author Name</author>
+    <price>299</price>
+  </book>
+</bookstore>`,
+        runnable: false,
+        sampleOutput: "XML validates successfully against DTD and XSD if the file structure matches the schema."
+      },
+      {
+        title: "Servlet controller for web interaction",
+        description: "Design a controller with servlet that provides interaction with the application developed in experiment 1 and the database created in experiment 5.",
+        objective: "Connect the frontend web app to backend servlet logic and database operations.",
+        tools: "Java Servlets, JDBC, HTML forms, backend routing",
+        outcome: "A servlet-based web controller integrating the shopping app with database CRUD.",
+        answer: "Handle form requests in servlet methods, use JDBC to update the database, and return the response to the client.",
+        code: `// Java servlet pseudocode
+protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+  String action = req.getParameter("action");
+  if ("addProduct".equals(action)) {
+    // insert product into DB
+  }
+}
+`,
+        runnable: false,
+        sampleOutput: "Servlet accepts form data and updates the database, then returns a success response."
+      },
+      {
+        title: "Session tracking with cookies and HTTP sessions",
+        description: "Explore session tracking mechanisms like cookies and HTTP sessions to maintain user transaction history.",
+        objective: "Implement persistence of user state across requests using session techniques.",
+        tools: "Cookies, HTTP Session, server-side state",
+        outcome: "A web application that preserves user transaction history using sessions and cookies.",
+        answer: "Use cookies or session storage to keep the user's cart and login state across page visits.",
+        code: `const cookie = { user: 'student', cart: ['book', 'pen'] };
+console.log('Saved cookie data:', cookie);
+if(cookie.cart.length) {
+  console.log('Transactions stored:', cookie.cart.join(', '));
+}`,
+        runnable: true,
+        sampleOutput: "Saved cookie data: { user: 'student', cart: ['book', 'pen'] }\nTransactions stored: book, pen"
+      },
+      {
+        title: "Custom Node.js server and core modules",
+        description: "Create a custom server using the Node.js http module and explore Node.js modules like os, path, and events.",
+        objective: "Build a basic server and practice common Node.js core modules.",
+        tools: "Node.js, http, os, path, events",
+        outcome: "A working custom Node.js server plus exploration of key core modules.",
+        answer: "Use http.createServer to handle requests, inspect request details, and use os/path utilities for environment and path handling.",
+        code: `const http = require('http');
+const os = require('os');
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  console.log('Request URL:', req.url);
+  console.log('Platform:', os.platform());
+  res.end('Hello from ETH sandbox!');
+});
+server.listen(3000, () => console.log('Server started on 3000'));`,
+        runnable: true,
+        sampleOutput: "Server started on 3000\n(simulated request GET / → 200) response body: 'Hello from ETH sandbox!'"
+      },
+      {
+        title: "Express REST API CRUD application",
+        description: "Develop an Express web application that can interact with REST APIs to perform CRUD operations on student data using Postman.",
+        objective: "Build a RESTful student API with create/read/update/delete endpoints.",
+        tools: "Node.js, Express, REST, Postman",
+        outcome: "A student management REST API that supports full CRUD via HTTP requests.",
+        answer: "Define Express routes for student CRUD operations and use JSON body parsing to handle request data.",
+        code: `const express = require('express');
+const app = express();
+app.use(express.json());
+const students = [];
+app.post('/students', (req, res) => {
+  students.push(req.body);
+  res.status(201).send(req.body);
+});
+app.listen(3000);`,
+        runnable: false,
+        sampleOutput: "POST /students returns the created record; GET /students returns all student records."
+      },
+      {
+        title: "JWT authorization for API endpoints",
+        description: "For the above application, create authorized endpoints using JWT (JSON Web Token).",
+        objective: "Secure API routes by adding authentication and token-based authorization.",
+        tools: "JSON Web Token, Express middleware, authentication",
+        outcome: "Protected API endpoints that require a valid JWT to access.",
+        answer: "Generate a JWT on login, return it to the client, and validate the token in middleware for protected routes.",
+        code: `// Example JWT flow pseudocode
+const token = jwt.sign({ user: 'student' }, 'secret');
+function auth(req, res, next) {
+  const bearer = req.headers.authorization;
+  const payload = jwt.verify(bearer.split(' ')[1], 'secret');
+  next();
+}`,
+        runnable: false,
+        sampleOutput: "Protected route returns 401 without a valid token and success when the JWT is valid."
+      },
+      {
+        title: "React student management application",
+        description: "Create a React application for the student management system with registration, login, contact, and about pages, and implement routing to navigate through these pages.",
+        objective: "Build a modern React SPA with multiple pages and client-side routing.",
+        tools: "React, React Router, frontend routing, UI components",
+        outcome: "A React-based student management app with page navigation and user registration/login.",
+        answer: "Build React page components and route them with React Router, and manage registration and login state using local state or context.",
+        code: `function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}`,
+        runnable: false,
+        sampleOutput: "The React app routes between home and login pages without a full refresh."
+      },
+      {
+        title: "React weather chart service",
+        description: "Create a service in React that fetches weather information from openweathermap.org and displays the current and historical weather information using graphical representation with chart.js.",
+        objective: "Fetch weather data, transform it for chart display, and render history in a chart component.",
+        tools: "React, OpenWeatherMap API, Chart.js, Fetch API",
+        outcome: "A React dashboard showing current weather and historical trends in a chart.",
+        answer: "Fetch weather data in a React useEffect hook, transform it into chart arrays, and render a line chart component.",
+        code: `async function loadWeather() {
+  const response = await fetch('https://api.openweathermap.org/data/2.5/onecall?lat=12.97&lon=77.59&appid=YOUR_API_KEY&units=metric');
+  const data = await response.json();
+  const points = data.daily.slice(0,5).map(day => ({
+    date: new Date(day.dt * 1000).toLocaleDateString(),
+    temp: day.temp.day
+  }));
+  console.log(points);
+}
+loadWeather();`,
+        runnable: false,
+        sampleOutput: "Chart displays temperature trend for the next five days along with current weather details."
+      },
+      {
+        title: "React TODO application with GitHub deployment",
+        description: "Create a TODO application in React with necessary components and deploy it into GitHub.",
+        objective: "Build a React TODO app with add, complete, and delete functionality and deploy it to GitHub.",
+        tools: "React, GitHub Pages, frontend components",
+        outcome: "A deployed TODO application with task management and GitHub hosting.",
+        answer: "Create TodoList, TodoItem, and AddTodo components, manage them with React hooks, and deploy the static build output to GitHub Pages.",
+        code: `function TodoApp() {
+  const [tasks, setTasks] = React.useState([]);
+  const [text, setText] = React.useState('');
+  function addTask() {
+    setTasks([...tasks, { id: Date.now(), text, done: false }]);
+    setText('');
+  }
+  return (
+    <div>
+      <input value={text} onChange={e => setText(e.target.value)} />
+      <button onClick={addTask}>Add</button>
+      <ul>{tasks.map(task => <li key={task.id}>{task.text}</li>)}</ul>
+    </div>
+  );
+}`,
+        runnable: false,
+        sampleOutput: "Tasks are added to the list and the app can be deployed as a static React application."
+      }
+    ];
+
+    const stepLabel = document.getElementById('stepLabel');
+    const experimentTitle = document.getElementById('experimentTitle');
+    const experimentDescription = document.getElementById('experimentDescription');
+    const experimentObjective = document.getElementById('experimentObjective');
+    const experimentTools = document.getElementById('experimentTools');
+    const experimentOutcome = document.getElementById('experimentOutcome');
+    const experimentAnswer = document.getElementById('experimentAnswer');
+    const experimentCode = document.getElementById('experimentCode');
+    const runSampleBtn = document.getElementById('runSampleBtn');
+    const experimentOutput = document.getElementById('experimentOutput');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const restartBtn = document.getElementById('restartBtn');
+    const experimentList = document.getElementById('experimentList');
+
+    let currentIndex = 0;
+
+    function setOutput(lines) {
+      if (!lines || !lines.length) {
+        experimentOutput.innerHTML = '<div class="console__placeholder">No output available.</div>';
+        return;
+      }
+      experimentOutput.innerHTML = lines.map(line => `<div class="line">${line.text}</div>`).join('');
+    }
+
+    function renderExperiment(index) {
+      const item = experiments[index];
+      stepLabel.textContent = `Experiment ${index + 1} of ${experiments.length}`;
+      experimentTitle.textContent = item.title;
+      experimentDescription.textContent = item.description;
+      experimentObjective.textContent = item.objective;
+      experimentTools.textContent = item.tools;
+      experimentOutcome.textContent = item.outcome;
+      experimentAnswer.textContent = item.answer || 'Answer content is not available yet.';
+      experimentCode.textContent = item.code || 'No sample code available for this experiment.';
+      prevBtn.disabled = index === 0;
+      nextBtn.textContent = index === experiments.length - 1 ? 'Finish' : 'Next';
+      if (item.runnable) {
+        runSampleBtn.style.display = 'inline-flex';
+        runSampleBtn.disabled = false;
+      } else {
+        runSampleBtn.style.display = 'none';
+      }
+      if (!item.runnable && item.sampleOutput) {
+        experimentOutput.innerHTML = `<div class="line">${item.sampleOutput}</div>`;
+      } else {
+        experimentOutput.innerHTML = '<div class="console__placeholder">Click "Run Sample Code" to see output from the built-in sandbox.</div>';
+      }
+      window.location.hash = '#lab-experiment';
+    }
+
+    function renderExperimentList() {
+      experimentList.innerHTML = experiments.map((exp, idx) => `
+        <li>
+          <strong>Experiment ${idx + 1}:</strong> ${exp.title}
+          <div><button type="button" data-index="${idx}">Open</button></div>
+        </li>
+      `).join('');
+    }
+
+    prevBtn.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex -= 1;
+        renderExperiment(currentIndex);
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (currentIndex < experiments.length - 1) {
+        currentIndex += 1;
+        renderExperiment(currentIndex);
+      } else {
+        currentIndex = experiments.length - 1;
+        alert('You have reached the end of the lab manual. Use the list below to review any experiment again.');
+      }
+    });
+
+    restartBtn.addEventListener('click', () => {
+      currentIndex = 0;
+      renderExperiment(currentIndex);
+    });
+
+    experimentList.addEventListener('click', (event) => {
+      const button = event.target.closest('button[data-index]');
+      if (!button) return;
+      currentIndex = Number(button.dataset.index);
+      renderExperiment(currentIndex);
+    });
+
+    runSampleBtn.addEventListener('click', () => {
+      const item = experiments[currentIndex];
+      if (!item.runnable) return;
+      const result = ETHSandbox.run(item.code);
+      setOutput(result.lines);
+    });
+
+    renderExperimentList();
+    renderExperiment(currentIndex);
+  </script>
+</body>
+</html>

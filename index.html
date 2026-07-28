@@ -90,7 +90,8 @@
   .landing-stat b{ display:block; font-family:'Space Grotesk', sans-serif; font-size:26px; color:var(--forest-700); }
   .landing-stat span{ font-size:12.5px; color:#6A7166; font-family:'JetBrains Mono', monospace; letter-spacing:.04em; }
   .landing-card{ background:var(--ink); color:var(--ink-soft); border-radius:var(--radius); padding:30px 28px; display:flex; flex-direction:column; align-items:center; text-align:center; gap:14px; box-shadow:0 20px 50px rgba(15,23,18,0.12); }
-  .landing-card__avatar{ width:76px; height:76px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:linear-gradient(160deg, var(--forest-700), var(--forest)); color:#fff; font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:22px; }
+  .landing-card__avatar{ width:76px; height:76px; border-radius:50%; object-fit:cover; display:block; border:2px solid rgba(255,255,255,0.16); box-shadow:0 10px 30px rgba(15,23,18,0.1); }
+  .landing-card--profile .landing-card__avatar{ width:84px; height:84px; }
   .landing-card__name{ font-family:'Space Grotesk', sans-serif; font-weight:600; font-size:18px; color:#fff; margin:0; }
   .landing-card__role{ font-size:13px; color:var(--amber); font-family:'JetBrains Mono', monospace; margin:0; }
   .landing-card__bio{ font-size:13.5px; color:var(--ink-soft); margin:6px 0 4px; line-height:1.55; }
@@ -98,6 +99,16 @@
   .landing-card__meta{ width:100%; display:flex; align-items:center; justify-content:space-between; font-size:12.5px; margin-top:4px; }
   .landing-card__meta span{ color:var(--ink-dim); font-family:'JetBrains Mono', monospace; }
   .landing-card__meta b{ color:#fff; font-weight:600; }
+  .landing-card__contact{ display:flex; gap:12px; margin-top:18px; justify-content:center; flex-wrap:wrap; }
+  .contact-icon{ display:inline-flex; align-items:center; justify-content:center; width:44px; height:44px; color:#fff; background:rgba(255,255,255,.11); border-radius:50%; text-decoration:none; transition:transform .18s ease, background .18s ease; font-size:18px; }
+  .contact-icon:hover{ background:rgba(255,255,255,.22); transform:translateY(-1px); }
+  .landing-founder-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .landing-card--profile{ align-items:flex-start; text-align:left; }
+  .landing-card--profile .landing-card__avatar{ width:84px; height:84px; font-size:24px; }
+  .landing-card--message{ background:#fff; color:#20261f; }
+  .landing-card--message .landing-badge{ margin-bottom:18px; }
+  .landing-card--message h3{ font-size:20px; color:#132014; margin-top:0; margin-bottom:16px; }
+  .landing-card--message p{ margin:0 0 16px; color:#3a4238; font-size:15.5px; line-height:1.75; }
   .landing-service-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:20px; }
   .landing-service-card{ background:#fff; border:1px solid var(--line-dark); border-radius:var(--radius); padding:26px 26px 24px; transition:transform .15s, box-shadow .15s, border-color .15s; position:relative; overflow:hidden; }
   .landing-service-card::before{ content:""; position:absolute; inset:auto auto -24px -24px; width:90px; height:90px; background:radial-gradient(circle, rgba(31,94,58,0.10), transparent 70%); }
@@ -189,15 +200,68 @@
           <div class="landing-stat"><b>1</b><span>Live Sandbox</span></div>
         </div>
       </div>
-      <div class="landing-card">
-        <div class="landing-card__avatar">SLB</div>
-        <p class="landing-card__name">Shaik Lalu Basha</p>
-        <p class="landing-card__role">Founder &amp; Developer</p>
-        <p class="landing-card__bio">Designed and built Node.js Academy end-to-end to make practical software education accessible to students, beginners, and developers.</p>
-        <div class="landing-card__divider"></div>
-        <div class="landing-card__meta"><span>Organization</span><b>Escort Tech Hub</b></div>
-        <div class="landing-card__meta"><span>Platform</span><b>Node.js Academy</b></div>
-        <div class="landing-card__meta"><span>Focus</span><b>Learning &amp; Development</b></div>
+    </div>
+  </section>
+
+  <section class="landing-section landing-section--alt" id="founder">
+    <div class="landing-wrap">
+      <div class="landing-section__head">
+        <span class="landing-badge">Founder</span>
+        <h2>Founder profile and quick contact</h2>
+        <p>Meet Shaik Lalu Basha, read the founder’s message, and reach out easily via email, call, WhatsApp, or Instagram.</p>
+      </div>
+
+      <div class="landing-founder-grid">
+        <article class="landing-card landing-card--profile">
+          <img class="landing-card__avatar" src="shaik_lalu.jpg" alt="Shaik Lalu Basha">
+          <p class="landing-card__name">Shaik Lalu Basha</p>
+          <p class="landing-card__role">Founder & Developer</p>
+          <p class="landing-card__bio">
+            Designed and built Node.js Academy end-to-end to make practical software education accessible to students, beginners, and developers.
+          </p>
+
+          <div class="landing-card__divider"></div>
+
+          <div class="landing-card__meta">
+            <span>Organization</span>
+            <b>Escort Tech Hub</b>
+          </div>
+
+          <div class="landing-card__meta">
+            <span>Platform</span>
+            <b>Node.js Academy</b>
+          </div>
+
+          <div class="landing-card__meta">
+            <span>Focus</span>
+            <b>Learning & Development</b>
+          </div>
+
+          <div class="landing-card__divider"></div>
+
+          <div class="landing-card__contact">
+            <a class="contact-icon" href="mailto:founder.escorttechhub@gmail.com" aria-label="Email founder">
+              <span>📧</span>
+            </a>
+            <a class="contact-icon" href="tel:+917993417685" aria-label="Call founder">
+              <span>📞</span>
+            </a>
+            <a class="contact-icon" href="https://wa.me/917993417685" target="_blank" aria-label="WhatsApp founder">
+              <span>💬</span>
+            </a>
+            <a class="contact-icon" href="https://instagram.com/YOUR_INSTAGRAM_USERNAME" target="_blank" aria-label="Instagram profile">
+              <span>📸</span>
+            </a>
+          </div>
+        </article>
+
+        <article class="landing-card landing-card--message">
+          <span class="landing-badge landing-badge--amber">Founder’s Message</span>
+          <h3>Hello, welcome to Node.js Academy.</h3>
+          <p>I built this platform so learning backend development becomes practical, easy to follow, and enjoyable. Every lesson is paired with runnable examples and clear explanations so you can grow from your first script to a production-ready app.</p>
+          <p>My goal is to make software education accessible to students and developers who want real skills, not just theory. If you need support, ask a question, or want a custom learning path, I’m here to help.</p>
+          <p>Reach out directly by email, phone, or WhatsApp — I look forward to helping you build your next Node.js project.</p>
+        </article>
       </div>
     </div>
   </section>

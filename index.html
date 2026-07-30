@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <style>
   :root{
     --ink:#0F1712;
@@ -241,19 +242,63 @@
 
           <div class="landing-card__contact">
             <a class="contact-icon" href="mailto:founder.escorttechhub@gmail.com" aria-label="Email founder">
-              <span>📧</span>
-            </a>
-            <a class="contact-icon" href="tel:+917993417685" aria-label="Call founder">
-              <span>📞</span>
-            </a>
-            <a class="contact-icon" href="https://wa.me/917993417685" target="_blank" aria-label="WhatsApp founder">
-              <span>💬</span>
-            </a>
-            <a class="contact-icon" href="https://www.instagram.com/shaik.lalbasha.963?igsh=eDdpenlyam9obTVh" target="_blank" aria-label="Instagram profile">
-              <span>📸</span>
-            </a>
+    <i class="fa-solid fa-envelope"></i>
+</a>
+
+<a class="contact-icon" href="tel:+917993417685" aria-label="Call founder">
+    <i class="fa-solid fa-phone"></i>
+</a>
+
+<a class="contact-icon" href="https://wa.me/917993417685" target="_blank" aria-label="WhatsApp founder">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+<a class="contact-icon" href="https://www.instagram.com/shaik.lalbasha.963?igsh=eDdpenlyam9obTVh" target="_blank" aria-label="Instagram profile">
+    <i class="fa-brands fa-instagram"></i>
+</a>
           </div>
         </article>
+        <style>.contact-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 22px;
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    transition: all .3s ease;
+}
+
+.contact-icon:hover {
+    transform: translateY(-5px) scale(1.08);
+    box-shadow: 0 10px 25px rgba(0,0,0,.3);
+}
+
+/* Individual Brand Colors */
+.contact-icon:nth-child(1):hover {
+    background: #EA4335; /* Gmail */
+}
+
+.contact-icon:nth-child(2):hover {
+    background: #2196F3; /* Phone */
+}
+
+.contact-icon:nth-child(3):hover {
+    background: #25D366; /* WhatsApp */
+}
+
+.contact-icon:nth-child(4):hover {
+    background: linear-gradient(45deg,
+        #F58529,
+        #FEDA77,
+        #DD2A7B,
+        #8134AF,
+        #515BD4);
+}</style>
 
         <article class="landing-card landing-card--message">
           <span class="landing-badge landing-badge--amber">Founder’s Message</span>

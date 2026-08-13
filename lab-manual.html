@@ -94,6 +94,7 @@
       <p>Follow every lab experiment in order with details, objectives, outcomes, and a guided next-step flow. Use the buttons below to move through the full syllabus.</p>
       <div class="hero-actions">
         <a class="btn btn--primary" href="#lab-experiment">Open Current Experiment</a>
+        <a class="btn btn--secondary" id="docBtn" href="Node.js Experiment 1.pdf" target="_blank" download>New Document</a>
         <a class="btn btn--secondary" href="#all-experiments">View All Experiments</a>
       </div>
     </section>
@@ -430,6 +431,7 @@ loadWeather();`,
     const nextBtn = document.getElementById('nextBtn');
     const restartBtn = document.getElementById('restartBtn');
     const experimentList = document.getElementById('experimentList');
+    const docBtn = document.getElementById('docBtn');
 
     let currentIndex = 0;
 
@@ -451,6 +453,7 @@ loadWeather();`,
       experimentOutcome.textContent = item.outcome;
       experimentAnswer.textContent = item.answer || 'Answer content is not available yet.';
       experimentCode.textContent = item.code || 'No sample code available for this experiment.';
+      docBtn.href = `Node.js Experiment ${index + 1}.pdf`;
       prevBtn.disabled = index === 0;
       nextBtn.textContent = index === experiments.length - 1 ? 'Finish' : 'Next';
       if (item.runnable) {
@@ -471,7 +474,10 @@ loadWeather();`,
       experimentList.innerHTML = experiments.map((exp, idx) => `
         <li>
           <strong>Experiment ${idx + 1}:</strong> ${exp.title}
-          <div><button type="button" data-index="${idx}">Open</button></div>
+          <div>
+            <button type="button" data-index="${idx}">Open</button>
+            <a href="Node.js Experiment ${idx + 1}.pdf" target="_blank" download style="display:inline-flex; align-items:center; justify-content:center; padding:10px 14px; margin-left:8px; background:rgba(31,94,58,0.08); border:none; border-radius:10px; color:#1F5E3A; cursor:pointer; text-decoration:none; font-size:14px; font-weight:600;">Document</a>
+          </div>
         </li>
       `).join('');
     }

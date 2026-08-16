@@ -8,6 +8,7 @@ const ETH_SITE = (() => {
   const NAV_LINKS = [
     { key: "home", label: "Home", href: "index.html" },
     { key: "curriculum", label: "Curriculum", href: "lessons/what-is-nodejs.html" },
+    { key: "lab-manual", label: "Lab Manual", href: "lab-manual.html" },
     { key: "playground", label: "Playground", href: "playground.html" }
   ];
 

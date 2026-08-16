@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Secure PDF Viewer — Node.js Academy</title>
+<meta name="description" content="Secure PDF viewer for Node.js Academy - copy and text selection disabled." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%231F5E3A%22/><text x=%2250%22 y=%2264%22 font-size=%2242%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22monospace%22>ETH</text></svg>">
+<link rel="stylesheet" href="css/style.css" />
+<style>
+  :root{
+    --ink:#0F1712;
+    --ink-soft:#B9CBBE;
+    --paper:#F7F4EC;
+    --forest:#1F5E3A;
+    --forest-700:#2B7A46;
+    --amber:#E8A33D;
+    --slate:#20261F;
+    --line-dark:rgba(15,23,18,0.10);
+    --radius:14px;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; min-height:100vh; background:var(--paper); color:var(--slate); font-family:'Inter',sans-serif;}
+  a{color:inherit; text-decoration:none;}
+  .page-shell{max-width:var(--maxw); margin:0 auto; padding:0 24px 56px;}
+  .topbar{position:sticky; top:0; z-index:20; background:rgba(247,244,236,0.96); border-bottom:1px solid var(--line-dark);}
+  .topbar__row{display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 0;}
+  .brand{display:flex; align-items:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px;}
+  .brand__mark{width:40px; height:40px; border-radius:12px; background:linear-gradient(135deg,var(--forest-700),var(--forest)); color:#fff; display:grid; place-items:center; font-family:'JetBrains Mono',monospace; font-size:14px;}
+  .topnav{display:flex; gap:20px; flex-wrap:wrap;}
+  .topnav a{font-weight:600; color:var(--slate); opacity:.75; transition:opacity .2s;}
+  .topnav a:hover,.topnav a.is-active{opacity:1;}
+  .topnav a.is-active{color:var(--forest);}
+  .topbar__cta{font-family:'JetBrains Mono',monospace; font-size:13.5px; font-weight:500; background:var(--forest); color:#fff; padding:10px 18px; border-radius:10px;}
+  .hero{padding:64px 0 32px;}
+  .hero h1{font-size:clamp(32px,4vw,44px); margin:0 0 12px;}
+  .hero p{max-width:64ch; color:#374033; font-size:16px; margin:0 0 20px;}
+  .back-button{display:inline-flex; align-items:center; gap:8px; margin-bottom:20px; color:var(--forest); font-weight:600; transition:opacity .2s;}
+  .back-button:hover{opacity:0.7;}
+  html,body{margin:0; background:var(--paper);}
+  body{-webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; -webkit-touch-callout:none;}
+  .secure-viewer{user-select:none; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; -webkit-touch-callout:none;}
+  .secure-viewer *{user-select:none; -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none;}
+  .security-notice{background:rgba(31,94,58,0.08); border:1px solid rgba(31,94,58,0.2); border-radius:12px; padding:16px; margin-bottom:20px; color:var(--forest); font-size:14px; line-height:1.6;}
+  .security-notice strong{display:block; margin-bottom:8px; font-size:15px;}
+  .pdf-container{background:#fff; border:1px solid var(--line-dark); border-radius:20px; box-shadow:0 18px 40px rgba(15,23,18,0.08); padding:24px; margin-top:28px; min-height:600px;}
+  .pdf-stage{position:relative; display:flex; flex-direction:column; justify-content:flex-start; align-items:center; background:#f5f5f5; border:1px solid var(--line-dark); border-radius:12px; padding:20px; gap:20px;}
+  .pdf-stage::after{content:""; position:absolute; inset:0; pointer-events:none; background:transparent;}
+  canvas{display:block; max-width:100%; width:100%; height:auto; box-shadow:0 8px 22px rgba(0,0,0,0.12); background:#fff; user-select:none; -webkit-user-select:none; -ms-user-select:none; pointer-events:none; page-break-after:always; margin-bottom:16px;}
+  .pdf-status{padding:18px; text-align:center; color:#4d574f; font-size:14px;}
+  footer{padding:24px 0 40px; color:#5c6358; font-size:14px;}
+  .footer-links{display:flex; flex-wrap:wrap; gap:18px; align-items:center;}
+  @media(max-width:860px){.topbar__row{flex-direction:column; align-items:flex-start;}.hero{padding-top:44px;}.pdf-stage{min-height:500px; padding:10px;}}
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="page-shell topbar__row">
+      <a class="brand" href="index.html"><span class="brand__mark">ETH</span>Node.js Academy</a>
+      <nav class="topnav">
+        <a href="index.html">Home</a>
+        <a href="lessons/what-is-nodejs.html">Curriculum</a>
+        <a href="lab-manual.html">Lab Manual</a>
+        <a href="playground.html">Playground</a>
+      </nav>
+      <a class="topbar__cta" href="playground.html">Open Playground</a>
+    </div>
+  </div>
+
+  <main class="page-shell">
+    <section class="hero">
+      <a class="back-button" href="lab-manual.html">← Back to Lab Manual</a>
+      <h1>Document Viewer</h1>
+      <p>Open the PDF inside this site and study it without copy or selection tools.</p>
+    </section>
+
+    <div class="secure-viewer">
+      <div class="security-notice">
+        <strong>📚 Learning Note:</strong>
+        This document viewer keeps the PDF inside the website. Copy, selection, right-click, and browser download controls are hidden to encourage active learning and manual typing.
+      </div>
+
+      <div class="pdf-container">
+        <div class="pdf-status" id="pdfStatus">Loading PDF…</div>
+        <div class="pdf-stage" aria-label="Protected PDF document area" id="pdfStage"></div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-links">
+        <span>© 2026 Escort Tech Hub</span>
+        <a href="index.html">Home</a>
+        <a href="playground.html">Playground</a>
+        <a href="lessons/what-is-nodejs.html">First Lesson</a>
+      </div>
+    </footer>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    const pdfStage = document.getElementById('pdfStage');
+    const status = document.getElementById('pdfStatus');
+
+    document.addEventListener('selectstart', (e) => e.preventDefault());
+    document.addEventListener('copy', (e) => e.preventDefault());
+    document.addEventListener('cut', (e) => e.preventDefault());
+    document.addEventListener('paste', (e) => e.preventDefault());
+    document.addEventListener('contextmenu', (e) => e.preventDefault());
+    document.addEventListener('dragstart', (e) => e.preventDefault());
+    document.addEventListener('dragover', (e) => e.preventDefault());
+    document.addEventListener('drop', (e) => e.preventDefault());
+    document.addEventListener('mousedown', (e) => {
+      if (e.button === 2) e.preventDefault();
+    });
+    window.addEventListener('beforeprint', (e) => e.preventDefault());
+    window.addEventListener('keydown', (event) => {
+      const blockedKeys = ['F12', 'PrintScreen', 'Print', 'ContextMenu', 'F5', 'F10'];
+      const comboKeys = ['c', 'C', 'v', 'V', 'p', 'P', 's', 'S', 'a', 'A'];
+
+      if (blockedKeys.includes(event.key)) {
+        event.preventDefault();
+        return;
+      }
+
+      if ((event.ctrlKey || event.metaKey) && comboKeys.includes(event.key)) {
+        event.preventDefault();
+      }
+    });
+
+    async function renderPdfFromUrl(pdfUrl) {
+      if (!window.pdfjsLib) {
+        status.textContent = 'PDF viewer library failed to load.';
+        return;
+      }
+
+      try {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        const pdf = await pdfjsLib.getDocument({ url: pdfUrl, disableStream: true }).promise;
+        const numPages = pdf.numPages;
+        const containerWidth = pdfStage.clientWidth - 40;
+
+        status.textContent = `Loading ${numPages} page${numPages !== 1 ? 's' : ''}…`;
+
+        for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+          const page = await pdf.getPage(pageNum);
+          const viewport = page.getViewport({ scale: 1.2 });
+          const scale = Math.min(containerWidth / viewport.width, 1.4);
+          const scaledViewport = page.getViewport({ scale });
+
+          const canvas = document.createElement('canvas');
+          canvas.width = scaledViewport.width;
+          canvas.height = scaledViewport.height;
+          canvas.setAttribute('data-page', pageNum);
+          canvas.setAttribute('aria-label', `PDF page ${pageNum}`);
+
+          const ctx = canvas.getContext('2d');
+          await page.render({
+            canvasContext: ctx,
+            viewport: scaledViewport
+          }).promise;
+
+          pdfStage.appendChild(canvas);
+        }
+
+        status.textContent = `PDF open in secure viewer — ${numPages} page${numPages !== 1 ? 's' : ''}`;
+      } catch (error) {
+        console.error(error);
+        status.textContent = 'Unable to load this PDF. Please check the file name and try again.';
+      }
+    }
+
+    function loadPdfFromQuery() {
+      const params = new URLSearchParams(window.location.search);
+      const file = params.get('file');
+
+      if (!file) {
+        status.textContent = 'No PDF selected. Go back to the lab manual and choose a document.';
+        return;
+      }
+
+      renderPdfFromUrl(file);
+    }
+
+    loadPdfFromQuery();
+  </script>
+</body>
+</html>
